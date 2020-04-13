@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+Route::get('export', 'Excel@export')->name('export');
+Route::get('importExportView', 'Excel@importExportView');
+Route::post('import', 'Excel@import')->name('import');
