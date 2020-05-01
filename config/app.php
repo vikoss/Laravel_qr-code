@@ -178,6 +178,13 @@ return [
         // Libreria para trabajar con excel, csv
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+
+        // Codigo QR
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+        // Generar Uuid
+        App\Providers\ObserverProvider::class,
+
     ],
 
     /*
@@ -230,6 +237,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
     ],
 

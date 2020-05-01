@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
+use App\Imports\TaxesImport;
 use Maatwebsite\Excel\Facades\Excel as Excell;
 
 class Excel extends Controller
@@ -30,7 +31,7 @@ class Excel extends Controller
     */
     public function import() 
     {
-        Excell::import(new UsersImport,request()->file('file'));
+        Excell::import(new TaxesImport,request()->file('file'));
            
         return back();
     }
