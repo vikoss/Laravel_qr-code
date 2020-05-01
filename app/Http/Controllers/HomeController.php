@@ -42,7 +42,7 @@ class HomeController extends Controller
 
     public function pdf($uuid, $type)
     {
-        $qrCode = QrCode::format('png')->size(150)->generate("http://localhost:8000/show/{$uuid}/{$type}");
+        $qrCode = QrCode::format('png')->size(150)->generate("https://certificacion-qr.ml/show/{$uuid}/{$type}");
 
         $tax = Tax::where('uuid', $uuid)->firstOrFail();
 
