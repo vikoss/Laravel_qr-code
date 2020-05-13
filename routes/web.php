@@ -21,12 +21,12 @@ Route::get('/', 'HomeController@index')->name('index');
 /*******************      rutas prueba importar y exportar EXCEL   *******************/
 
 Route::get('export', 'HomeController@export')->name('export');
-Route::get('importExportView', 'HomeController@importExportView');
+Route::get('importar-excel', 'HomeController@importExportView')->name('importView');
 Route::post('import', 'HomeController@import')->name('import');
 
 /*************************************************************************************/
 
-Route::get('show/{uuid}/{type}', 'HomeController@show')->name('show');
+Route::get('ver/{uuid}/{type}', 'HomeController@show')->name('show');
 
 Route::get('pdf/{uuid}/{type}', 'HomeController@pdf')->name('pdf');
 

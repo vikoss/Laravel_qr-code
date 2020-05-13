@@ -77,9 +77,8 @@ class HomeController extends Controller
         
         Excel::import(new TaxesImport,request()->file('file'));
 
-        //$this->pdf($);
            
-        return back();
+        return redirect()->route('importView')->with([ 'uploaded' => true ]);
     }
 
     public function pdfview() 

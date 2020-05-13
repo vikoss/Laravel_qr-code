@@ -26,7 +26,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Expediente</th>
-                            <th scope="col">Clave y Valor Catrastal</th>
+                            <th scope="col">Clave y Valor Catastral</th>
                             <th scope="col">Predial</th>
                             <th scope="col">Aportacion Mejoras</th>
                             <th scope="col">Nombre</th>
