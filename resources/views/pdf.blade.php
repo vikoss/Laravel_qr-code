@@ -15,7 +15,7 @@
                 margin: 0;
                 margin-bottom: 40px;
                 font-family: "Times New Roman", serif;
-                margin: 0mm 0mm 0mm 2mm;
+                margin: 0mm 0mm 40mm 10mm;
             }
             div {
                 position: absolute;
