@@ -36,6 +36,7 @@ class CreateTaxesTable extends Migration
             $table->string('FECHA_EMISION')->nullable();
             $table->string('VIGENCIA')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

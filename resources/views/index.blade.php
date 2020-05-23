@@ -30,6 +30,7 @@
                             <th scope="col">Predial</th>
                             <th scope="col">Aportacion Mejoras</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,7 @@
                                     @endif
                                 </td>
                                 <td> {{ $tax->NOMBRE }} </td>
+                                <td><a onClick="return confirm('Estas seguro ?')" href="{{ route('delete.tax', $tax) }}">Eliminar</a></td>
                             </tr>
                         @endforeach
                     </tbody>

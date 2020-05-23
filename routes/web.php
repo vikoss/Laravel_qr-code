@@ -30,6 +30,8 @@ Route::get('ver/{uuid}/{type}', 'HomeController@show')->name('show');
 
 Route::get('pdf/{uuid}/{type}', 'HomeController@pdf')->name('pdf');
 
+Route::get('delete/{tax}', 'HomeController@delete')->name('delete.tax');
+
 
 /***************************       Prueba pra la vista   ************/
 Route::get('pdf', 'HomeController@pdfview')->name('pdfview');

@@ -33,7 +33,7 @@ class HomeController extends Controller
         }
         if ($type == 'AM') {
             $tax->FOLIO = $tax->APORTACIONES_MEJORAS;
-            $tax->CERTIFICACION = 'Aportacion a mejoras';
+            $tax->CERTIFICACION = 'Aportaciones a mejoras';
         }
         
 
@@ -84,5 +84,12 @@ class HomeController extends Controller
     public function pdfview() 
     {      
         return view('pdfview');
+    }
+
+    public function delete(Tax $tax)
+    {
+        $tax->delete();
+
+        return redirect()->route('index');
     }
 }
