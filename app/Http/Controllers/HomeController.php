@@ -16,7 +16,7 @@ class HomeController extends Controller
     
     public function index()
     {
-        return view('index', [ 'taxes' => Tax::paginate() ]);
+        return view('index', [ 'taxes' => Tax::orderBy('EXP', 'asc')->paginate() ]);
     }
     
     public function show($uuid, $type)
@@ -42,11 +42,24 @@ class HomeController extends Controller
 
     public function pdf($uuid, $type)
     {
-        $qrCode = QrCode::format('png')->size(150)->generate("https://certificacion-qr.ml/ver/{$uuid}/{$type}");
+        $qrCode = QrCode::format('png')->size(150)->generate( url("/ver/{$uuid}/{$type}") );
 
         $tax = Tax::where('uuid', $uuid)->firstOrFail();
 
-        $stringCode = "{$type}{$tax->EXP}|{$tax->CLAVE_CAT}|{$tax->FECHA_EMISION}|{$uuid}".base64_encode($tax->NOMBRE);
+        $numberTax = 0;
+        
+        if ($type == 'CV') {
+            $numberTax = $tax->CLAVE_Y_VALOR_CATASTRAL;
+        }
+        if ($type == 'PP') {
+            $numberTax = $tax->NO_ADEUDO_PREDIAL;
+        }
+        if ($type == 'AM') {
+            $numberTax = $tax->APORTACIONES_MEJORAS;
+        }
+        
+
+        $stringCode = "{$type}{$numberTax}|{$tax->CLAVE_CAT}|{$tax->FECHA_EMISION}|{$uuid}".base64_encode($tax->NOMBRE);
       
         $pdf = PDF::loadView('pdf', ['qrCode' => $qrCode, 'stringCode' => $stringCode ]);
      
