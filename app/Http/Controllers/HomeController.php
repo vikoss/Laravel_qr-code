@@ -16,12 +16,12 @@ class HomeController extends Controller
     
     public function index()
     {
-        return view('index', [ 'taxes' => Tax::orderBy('CAST("EXP" AS INTEGER) ASC')->paginate() ]);
+        return view('index', [ 'taxes' => Tax::orderByRaw('CAST("EXP" AS INTEGER) ASC')->paginate() ]);
     }
 
     public function gelAll()
     {
-        return [ 'taxes' => Tax::orderBy('CAST("EXP" AS INTEGER) ASC')->get() ];
+        return [ 'taxes' => Tax::orderByRaw('CAST("EXP" AS INTEGER) ASC')->get() ];
     }
     
     public function show($uuid, $type)
