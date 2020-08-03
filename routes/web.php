@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 Route::get('/', 'HomeController@index')->name('index');
+Route::get('/gelAll', 'HomeController@gelAll')->name('gelAll');
 
 /*******************      rutas prueba importar y exportar EXCEL   *******************/
 

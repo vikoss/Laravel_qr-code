@@ -18,6 +18,11 @@ class HomeController extends Controller
     {
         return view('index', [ 'taxes' => Tax::orderBy('EXP', 'asc')->paginate() ]);
     }
+
+    public function gelAll()
+    {
+        return [ 'taxes' => Tax::orderBy('EXP', 'asc')->get() ];
+    }
     
     public function show($uuid, $type)
     {
