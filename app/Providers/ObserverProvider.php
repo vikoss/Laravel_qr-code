@@ -24,5 +24,7 @@ class ObserverProvider extends ServiceProvider
     public function boot()
     {
         \App\Tax::observe(\App\Observers\TaxObserver::class);
+        \App\Vehicle::observe(\App\Observers\VehicleObserver::class);
+        \App\Refill::observe(\App\Observers\RefillObserver::class);
     }
 }

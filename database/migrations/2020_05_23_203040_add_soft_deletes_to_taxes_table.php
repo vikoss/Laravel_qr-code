@@ -14,7 +14,8 @@ class AddSoftDeletesToTaxesTable extends Migration
     public function up()
     {
         Schema::table('taxes', function (Blueprint $table) {
-            $table->softDeletes();
+            //$table->softDeletes();
+            // Ya se agrego directamente
         });
     }
 
