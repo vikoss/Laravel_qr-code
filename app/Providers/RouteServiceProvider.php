@@ -89,7 +89,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapStationRoutes()
     {
-        Route::prefix('station')
+        Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/station.php'));

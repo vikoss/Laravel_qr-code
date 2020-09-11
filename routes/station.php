@@ -18,4 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('prueba', 'FuelStationController@prueba')->name('prueba');
+
+Route::group(['prefix' => 'fuel_station'], function ($router) {
+    
+    Route::get('prueba', 'FuelStationController@prueba')->name('prueba');
+
+});
