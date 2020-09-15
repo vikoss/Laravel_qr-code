@@ -17,6 +17,7 @@ class DependencySeeder extends Seeder
             
             
             
+            
             ['SEGURIDAD PÚBLICA'],
             ['PROTECCIÓN CIVIL'],
             ['OBRAS PÚBLICAS'],
@@ -68,7 +69,7 @@ class DependencySeeder extends Seeder
         foreach ($dependencies as $key => $dependency) {
             Dependency::create([
                 'name'      => $dependency[0],
-                'section'   => $dependency[1],
+                'section'   => $dependency[1] ?? '',
             ]);
         }
     }
