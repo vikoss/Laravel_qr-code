@@ -20,46 +20,18 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-
 });
 
 
 Route::group(['prefix' => 'nicolas_romero'], function ($router) {
 
-    Route::get('get_list', 'NicolasRomeroController@getList')->name('index');
-
-    //Route::get('update_excel', 'HomeController@importExportView')->name('importView');
     Route::post('upload_excel', 'NicolasRomeroController@importExcel')->name('import');
+    Route::post('view_pdf', 'NicolasRomeroController@viewPDF')->name('view_pdf');
+    Route::get('get_list', 'NicolasRomeroController@getList')->name('index');
+    Route::get('delete_tax/{tax}', 'NicolasRomeroController@delete')->name('delete.tax');
+    Route::get('ver_vigencia/{uuid}/{type}', 'NicolasRomeroController@getDetails')->name('show');
 
-    Route::get('ver/{uuid}/{type}', 'HomeController@show')->name('show');
-
-    Route::get('pdf/{uuid}/{type}', 'HomeController@pdf')->name('pdf');
-
-    Route::get('delete/{tax}', 'HomeController@delete')->name('delete.tax');
-
+    /*
+    integrar una API para busqueda de Tax's
+    */
 });
-
-
-
-/*
-Route::get('/', 'HomeController@index')->name('index');
-Route::get('/gelAll', 'HomeController@gelAll')->name('gelAll');
-*/
-/*******************      rutas prueba importar y exportar EXCEL   *******************/
-/*
-Route::get('export', 'HomeController@export')->name('export');
-Route::get('importar-excel', 'HomeController@importExportView')->name('importView');
-Route::post('import', 'HomeController@import')->name('import');
-*/
-/*************************************************************************************/
-/*
-Route::get('ver/{uuid}/{type}', 'HomeController@show')->name('show');
-
-Route::get('pdf/{uuid}/{type}', 'HomeController@pdf')->name('pdf');
-
-Route::get('delete/{tax}', 'HomeController@delete')->name('delete.tax');
-*/
-
-/***************************       Prueba pra la vista   ************//*
-Route::get('pdf', 'HomeController@pdfview')->name('pdfview');
-*/

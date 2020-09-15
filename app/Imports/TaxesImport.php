@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Tax;
+use App\ModelsNicolasRomero\Tax;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 

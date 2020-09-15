@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use App\Imports\TaxesImport;
-use App\Tax;
+use App\ModelsNicolasRomero\Tax;
 
 class HomeController extends Controller
 {

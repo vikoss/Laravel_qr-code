@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Observers;
-use App\Tax;
+use App\ModelsNicolasRomero\Tax;
 use Uuid;
 
 class TaxObserver

@@ -24,6 +24,7 @@ class CreateVehiclesTable extends Migration
             $table->string('model')->nullable();
             $table->string('inventory')->nullable();
             $table->text('observations')->nullable();
+            $table->integer('dependency_id');
             $table->timestamps();
         });
     }

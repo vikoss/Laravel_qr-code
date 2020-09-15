@@ -36,6 +36,26 @@ router.beforeEach((to, from, next) => {
     }*/
     if (to.path !== '/login' && !currentUser) next({ name: 'Login' })
     else next()
+
+    /*if (to.meta.requiresAuth) {
+        if (!currentUser || !currentUser.token) {
+            next({name: 'Login'})
+        } else if (to.meta.nicolasRomeroAuth) {
+            if (currentUser.role == 'Nicolas-Romero') {
+                next('/nicolas_romero')
+            } else {
+                next()
+            }
+            
+        }
+        
+    } else if (to.meta.residentAuth){
+
+    } else {
+        
+    }*/
+
+
 })
 
 

@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use Uuid;
-use App\Vehicle;
+use App\ModelsFuelStation\Vehicle;
 
 class VehicleObserver
 {
