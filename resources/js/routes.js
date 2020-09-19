@@ -4,7 +4,11 @@ import IndexNicolasRomero from './pages/nicolasRomero/Index'
 import ListOfCodes from './pages/nicolasRomero/ListOfCodes'
 import ImportExcel from './pages/nicolasRomero/ImportExcel'
 import ViewDetails from './pages/nicolasRomero/ViewDetails'
-import ViewPDF from './pages/nicolasRomero/ViewPDF'
+
+import IndexFuelStation from './pages/fuelStation/Index'
+import Refill from './pages/fuelStation/Refill'
+import ScanQRCode from './pages/fuelStation/ScanQRCode'
+import GenerateReport from './pages/fuelStation/GenerateReport'
 
 export const routes = [
     
@@ -31,10 +35,6 @@ export const routes = [
                 component: ImportExcel,
             },
             {
-                path: 'codigo_qr',
-                component: ViewPDF,
-            },
-            {
                 path: 'ver_vigencia/:uuid/:type',
                 component: ViewDetails,
             },
@@ -42,24 +42,27 @@ export const routes = [
     },
     {
         path: '/gasolinera',
-        component: ListOfCodes,
+        component: IndexFuelStation,
         meta: {
             requiresAuth: true,
             fuelStationAuth: true
         },
         children: [
             {
-                path: '/importar_excel',
-                component: ImportExcel,
+                path: '/',
+                component: ScanQRCode,
+                name: 'ScanQRCode'
             },
             {
-                path: '/codigo_qr',
-                component: ViewPDF,
+                path: 'recarga',
+                component: Refill,
+                name: 'Refill'
             },
             {
-                path: '/ver_vigencia',
-                component: ViewDetails,
-            },
+                path: 'generar_reportes',
+                component: GenerateReport,
+                name: 'GenerateReport'
+            }
         ]
     },
     

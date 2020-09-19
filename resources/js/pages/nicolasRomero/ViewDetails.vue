@@ -40,8 +40,7 @@ export default {
     name: 'ViewDetails',
     data() {
         return {
-            tax: {},
-            hostName: window.location.host
+            tax: {}
         }
     },
     created() {

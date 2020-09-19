@@ -14,13 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-Route::group(['prefix' => 'fuel_station'], function ($router) {
+/*Route::group(['prefix' => 'fuel_station'], function ($router) {
     
     Route::get('prueba', 'FuelStationController@prueba')->name('prueba');
 
-});
+    Route::get('get_vehicle/{uuid}', 'FuelStationController@getVehicle')->name('get_vehicle');
+
+});*/

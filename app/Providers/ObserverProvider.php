@@ -25,6 +25,6 @@ class ObserverProvider extends ServiceProvider
     {
         \App\ModelsNicolasRomero\Tax::observe(\App\Observers\TaxObserver::class);
         \App\ModelsFuelStation\Vehicle::observe(\App\Observers\VehicleObserver::class);
-        \App\ModelsFuelStation\Refill::observe(\App\Observers\RefillObserver::class);
+        //\App\ModelsFuelStation\Refill::observe(\App\Observers\RefillObserver::class);
     }
 }

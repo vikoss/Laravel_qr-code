@@ -12,7 +12,8 @@ export default {
         /*---------------------   Store QR Code Atizapan  ---------------------*/
         messageQRCode: 'code',
         /*---------------------   Store Fuel Station    ----------------------------*/
-        messageAtizapan: 'Hello from fuel S'
+        messageAtizapan: 'Hello from fuel S',
+        vehicleUUID: ''
     },
     getters: {
         isLoading(state) {
@@ -29,6 +30,10 @@ export default {
         },
         customers(state) {
             return state.customers
+        },
+        /*---------------------   Store Fuel Station    ----------------------------*/
+        getVehicleUUID(state) {
+            return state.vehicleUUID
         }
     },
     mutations: {
@@ -52,11 +57,15 @@ export default {
             localStorage.removeItem('user')
             state.isLoggedIn = false
             state.currentUser = null
+        },
+        /*---------------------   Store Fuel Station    ----------------------------*/
+        setVehicleUUID(state, uuid) {
+            state.vehicleUUID = uuid
         }
     },
     actions: {
         login(context) {
             context.commit('login')
-        }
+        },
     }
 }

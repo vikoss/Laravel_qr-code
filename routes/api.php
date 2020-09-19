@@ -35,3 +35,15 @@ Route::group(['prefix' => 'nicolas_romero'], function ($router) {
     integrar una API para busqueda de Tax's
     */
 });
+
+
+Route::group(['prefix' => 'fuel_station'], function ($router) {
+    
+    Route::get('prueba', 'FuelStationController@prueba')->name('prueba');
+
+    Route::get('get_vehicle/{uuid}', 'FuelStationController@getVehicle')->name('get_vehicle');
+    Route::post('save_refill', 'FuelStationController@saveRefill')->name('save_refill');
+    Route::post('get_bitacora', 'FuelStationController@getBitacora')->name('get_bitacora');
+    Route::get('get_dependencies', 'FuelStationController@getDependencies')->name('get_dependencies');
+
+});

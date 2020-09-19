@@ -15,12 +15,13 @@ class CreateRefillsTable extends Migration
     {
         Schema::connection('fuelStation')->create('refills', function (Blueprint $table) {
             $table->id();
-            $table->uuid('vehicle_uuid')->unique()->index();
-            $table->string('mileage')->nullable();
-            $table->string('type')->nullable();
-            $table->string('liters')->nullable();
-            $table->string('ticket_id')->nullable();
-            $table->string('ticket_amount')->nullable();
+            $table->uuid('vehicle_uuid');
+            $table->integer('mileage');
+            $table->set('type', ['Gasolina', 'Diesel', 'Gas L.P.']);
+            $table->decimal('liters', 11, 4);
+            $table->string('ticket_id');
+            $table->decimal('ticket_amount', 11, 4);
+            $table->string('invoice')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

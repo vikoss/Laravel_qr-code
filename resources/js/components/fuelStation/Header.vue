@@ -1,12 +1,12 @@
 <template>
     <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">Gasolinera</a>
 </nav>
 </template>
 
 <script>
 export default {
-    name: 'HeaderNicolasRomero'
+    name: 'HeaderFuelStation'
 }
 </script>
 
