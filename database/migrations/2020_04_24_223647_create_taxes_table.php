@@ -13,7 +13,7 @@ class CreateTaxesTable extends Migration
      */
     public function up()
     {
-        Schema::create('taxes', function (Blueprint $table) {
+        Schema::connection('qrCodeNicolasRomero')->create('taxes', function (Blueprint $table) {
             $table->id();
             
             $table->uuid('uuid')->unique()->index();
@@ -48,6 +48,6 @@ class CreateTaxesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taxes');
+        Schema::connection('qrCodeNicolasRomero')->dropIfExists('taxes');
     }
 }

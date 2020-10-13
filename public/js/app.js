@@ -2135,6 +2135,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'HeaderNicolasRomero'
 });
@@ -2724,6 +2729,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3068,6 +3077,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       data: {},
+      offset: 4,
       encodedPDF: null,
       modalPDF: false,
       modalConfirm: false,
@@ -3118,6 +3128,33 @@ __webpack_require__.r(__webpack_exports__);
     closeModalPDF: function closeModalPDF() {
       this.modalPDF = false;
       this.encodedPDF = null;
+    }
+  },
+  computed: {
+    pagesNumber: function pagesNumber() {
+      if (!this.data.to) {
+        return [];
+      }
+
+      var from = this.data.current_page - this.offset;
+
+      if (from < 1) {
+        from = 1;
+      }
+
+      var to = from + this.offset * 2;
+
+      if (to >= this.data.last_page) {
+        to = this.data.last_page;
+      }
+
+      var pagesArray = [];
+
+      for (var page = from; page <= to; page++) {
+        pagesArray.push(page);
+      }
+
+      return pagesArray;
     }
   }
 });
@@ -45589,20 +45626,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("ul", { staticClass: "nav" }, [
+    _c(
+      "li",
+      { staticClass: "nav-item" },
+      [
+        _c(
+          "router-link",
+          { staticClass: "nav-link active", attrs: { to: "/nicolas_romero" } },
+          [_vm._v("Inicio")]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "li",
+      { staticClass: "nav-item" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "nav-link active",
+            attrs: { to: "/nicolas_romero/importar_excel" }
+          },
+          [_vm._v("Subir Excel")]
+        )
+      ],
+      1
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "navbar navbar-light bg-light" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-        _vm._v("Navbar")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -46172,13 +46227,13 @@ var render = function() {
                       type: "radio",
                       name: "type",
                       id: "inlineRadio1",
-                      value: "Gasolina",
+                      value: "Magna",
                       required: ""
                     },
-                    domProps: { checked: _vm._q(_vm.refill.type, "Gasolina") },
+                    domProps: { checked: _vm._q(_vm.refill.type, "Magna") },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.refill, "type", "Gasolina")
+                        return _vm.$set(_vm.refill, "type", "Magna")
                       }
                     }
                   }),
@@ -46189,7 +46244,7 @@ var render = function() {
                       staticClass: "form-check-label",
                       attrs: { for: "inlineRadio1" }
                     },
-                    [_vm._v("Gasolina")]
+                    [_vm._v("Magna")]
                   )
                 ]),
                 _vm._v(" "),
@@ -46208,6 +46263,42 @@ var render = function() {
                       type: "radio",
                       name: "type",
                       id: "inlineRadio2",
+                      value: "Premium",
+                      required: ""
+                    },
+                    domProps: { checked: _vm._q(_vm.refill.type, "Premium") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.refill, "type", "Premium")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "inlineRadio2" }
+                    },
+                    [_vm._v("Premium")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.refill.type,
+                        expression: "refill.type"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "type",
+                      id: "inlineRadio3",
                       value: "Diesel",
                       required: ""
                     },
@@ -46223,7 +46314,7 @@ var render = function() {
                     "label",
                     {
                       staticClass: "form-check-label",
-                      attrs: { for: "inlineRadio2" }
+                      attrs: { for: "inlineRadio3" }
                     },
                     [_vm._v("Diesel")]
                   )
@@ -46243,7 +46334,7 @@ var render = function() {
                     attrs: {
                       type: "radio",
                       name: "type",
-                      id: "inlineRadio3",
+                      id: "inlineRadio4",
                       value: "Gas L.P.",
                       required: ""
                     },
@@ -46259,7 +46350,7 @@ var render = function() {
                     "label",
                     {
                       staticClass: "form-check-label",
-                      attrs: { for: "inlineRadio3" }
+                      attrs: { for: "inlineRadio4" }
                     },
                     [_vm._v("Gas L.P.")]
                   )
@@ -46691,7 +46782,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._l(_vm.data.last_page, function(n) {
+                        _vm._l(_vm.pagesNumber, function(n) {
                           return _c(
                             "li",
                             {

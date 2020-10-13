@@ -63,21 +63,6 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ],
-
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
@@ -90,15 +75,14 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-
-        'fuelStation' => [
-            'driver' => env('DB_CONNECTION_FUEL_STATION', 'pgsql'),
+        'pgsql' => [
+            'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST_FUEL_STATION', '127.0.0.1'),
-            'port' => env('DB_PORT_FUEL_STATION', '5432'),
-            'database' => env('DB_DATABASE_FUEL_STATION', 'forge'),
-            'username' => env('DB_USERNAME_FUEL_STATION', 'forge'),
-            'password' => env('DB_PASSWORD_FUEL_STATION', ''),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE_USERS', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
@@ -106,20 +90,35 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'users' => [
-            'driver' => env('DB_CONNECTION_USERS', 'pgsql'),
+        'qrCodeNicolasRomero' => [
+            'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST_USERS', '127.0.0.1'),
-            'port' => env('DB_PORT_USERS', '5432'),
-            'database' => env('DB_DATABASE_USERS', 'forge'),
-            'username' => env('DB_USERNAME_USERS', 'forge'),
-            'password' => env('DB_PASSWORD_USERS', ''),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE_QR_CODE_NR', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
-        ]
+        ],
+
+        'fuelStation' => [
+            'driver' => 'pgsql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE_FUEL_STATION', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
 
     ],
 

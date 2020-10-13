@@ -17,13 +17,12 @@ class CreateRefillsTable extends Migration
             $table->id();
             $table->uuid('vehicle_uuid');
             $table->integer('mileage');
-            $table->set('type', ['Magna', 'Premium', 'Diesel', 'Gas L.P.']);
+            $table->string('type');
             $table->decimal('liters', 11, 4);
             $table->string('ticket_id');
             $table->decimal('ticket_amount', 11, 4);
             $table->string('invoice')->nullable();
-            $table->smallInteger('additives')->nullable();
-            // Preguntar si es necesario guardar el precio de los aditivos o solo con el ticket amount
+            $table->decimal('liters_additives', 11, 4)->nullable();
             $table->decimal('amount_additives', 11, 4)->nullable();
             $table->softDeletes();
             $table->timestamps();

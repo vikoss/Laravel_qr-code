@@ -45,7 +45,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="page-item" :class="{ 'active': (data.current_page === n) }" v-for="n in data.last_page" :key="n">
+                                    <li class="page-item" :class="{ 'active': (data.current_page === n) }" v-for="n in pagesNumber" :key="n">
                                         <a href="#" class="page-link" @click.prevent="getResults(n)">
                                             <span>
                                                 {{ n }}
@@ -88,6 +88,7 @@ export default {
     data() {
         return {
             data: {},
+            offset: 4,
             encodedPDF: null,
             modalPDF: false,
             modalConfirm: false,
@@ -138,6 +139,26 @@ export default {
         closeModalPDF() {
             this.modalPDF = false
             this.encodedPDF = null
+        }
+    },
+    computed: {
+        pagesNumber() {
+            if (!this.data.to) {
+            return [];
+            }
+            let from = this.data.current_page - this.offset;
+            if (from < 1) {
+            from = 1;
+            }
+            let to = from + (this.offset * 2);
+            if (to >= this.data.last_page) {
+            to = this.data.last_page;
+            }
+            let pagesArray = [];
+            for (let page = from; page <= to; page++) {
+            pagesArray.push(page);
+            }
+            return pagesArray;
         }
     }
 }

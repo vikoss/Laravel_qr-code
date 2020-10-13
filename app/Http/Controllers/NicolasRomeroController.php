@@ -18,8 +18,7 @@ class NicolasRomeroController extends Controller
 
     public function getList()
     {
-        //return [ 'taxes' => Tax::orderByRaw('CAST("EXP" AS INTEGER) ASC')->paginate(10) ];
-        return Tax::paginate(10);
+        return Tax::orderByRaw('CAST("EXP" AS INTEGER) DESC')->paginate(10);
     }
 
     public function gelAll()
@@ -49,13 +48,7 @@ class NicolasRomeroController extends Controller
 
     public function viewPDF(ViewPDFRequest $request)
     {
-        $qrCode = QrCode::format('png')->size(150)->generate( url("/nicolas_romero/ver_vigencia/{$request->uuid}/{$request->type}") );
-        //$qrCode = QrCode::format('png')->size(150)->generate( url("/ver/{$uuid}/{$type}") );
-
-        /*
-            Creo que no podra cambiar este prefijo
-            Testear la generacion de esta URL
-        */
+        $qrCode = QrCode::format('png')->size(150)->generate( url("/ver/{$request->uuid}/{$request->type}") );
 
         $tax = Tax::where('uuid', $request->uuid)->firstOrFail();
 
