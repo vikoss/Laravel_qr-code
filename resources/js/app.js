@@ -34,8 +34,10 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }*/
-    if (to.path !== '/login' && !currentUser) next({ name: 'Login' })
-    else next()
+    
+    
+    /*if (to.path !== '/login' && !currentUser) next({ name: 'Login' })
+    else next()*/
 
     /*if (to.meta.requiresAuth) {
         if (!currentUser || !currentUser.token) {
@@ -53,6 +55,34 @@ router.beforeEach((to, from, next) => {
 
     } else {
         
+    }*/
+
+    // No requiere autenticacion entonces paseeee
+    if (!requiresAuth) {
+        next()
+        
+    // Si requiere autenticacion
+    } else {
+        // el usuario ya esta logeado
+        if (currentUser) {
+            next()
+            /*if (currentUser.role == 'FuelStation') {
+                next('/nicolas_romero')
+            } else if (currentUser.role == 'NicolasRomero') {
+                next('/gasolinera')
+            }*/
+        // el usuario no esta logeado
+        } else {
+            next('/login')
+        }
+    }
+
+    /*if(requiresAuth && !currentUser) {
+        next('/login');
+    } else if(to.path == '/login' && currentUser) {
+        next('/');
+    } else {
+        next();
     }*/
 
 

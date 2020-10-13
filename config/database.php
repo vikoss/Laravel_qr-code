@@ -104,6 +104,21 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'users' => [
+            'driver' => env('DB_CONNECTION_USERS', 'pgsql'),
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_USERS', '127.0.0.1'),
+            'port' => env('DB_PORT_USERS', '5432'),
+            'database' => env('DB_DATABASE_USERS', 'forge'),
+            'username' => env('DB_USERNAME_USERS', 'forge'),
+            'password' => env('DB_PASSWORD_USERS', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
         ]
 
     ],

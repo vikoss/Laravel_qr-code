@@ -50,8 +50,10 @@ class NicolasRomeroController extends Controller
     public function viewPDF(ViewPDFRequest $request)
     {
         $qrCode = QrCode::format('png')->size(150)->generate( url("/nicolas_romero/ver_vigencia/{$request->uuid}/{$request->type}") );
+        //$qrCode = QrCode::format('png')->size(150)->generate( url("/ver/{$uuid}/{$type}") );
 
         /*
+            Creo que no podra cambiar este prefijo
             Testear la generacion de esta URL
         */
 

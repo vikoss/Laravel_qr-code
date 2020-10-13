@@ -13,7 +13,7 @@ class CreateRoleUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
+        Schema::connection('users')->create('role_user', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('user_id');
             $table->primary(['role_id', 'user_id']);
@@ -28,6 +28,6 @@ class CreateRoleUserPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        Schema::connection('users')->dropIfExists('role_user');
     }
 }

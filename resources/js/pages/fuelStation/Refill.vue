@@ -40,16 +40,20 @@
             </div>
             <div class="form-group">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="option1" v-model="refill.type">
-                    <label class="form-check-label" for="inlineRadio1">1</label>
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="Magna" required v-model="refill.type">
+                    <label class="form-check-label" for="inlineRadio1">Magna</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="option2" v-model="refill.type">
-                    <label class="form-check-label" for="inlineRadio2">2</label>
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="Premium" required v-model="refill.type">
+                    <label class="form-check-label" for="inlineRadio2">Premium</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="option3" v-model="refill.type">
-                    <label class="form-check-label" for="inlineRadio3">3</label>
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="Diesel" required v-model="refill.type">
+                    <label class="form-check-label" for="inlineRadio3">Diesel</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio4" value="Gas L.P." required v-model="refill.type">
+                    <label class="form-check-label" for="inlineRadio4">Gas L.P.</label>
                 </div>
             </div>
            

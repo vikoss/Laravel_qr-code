@@ -52,7 +52,14 @@ export default {
             login(this.form)
                 .then(response => {
                     this.$store.commit('loginSuccess', response)
-                    this.$router.push({path: '/'})
+                    console.log(response.role)
+                    if (response.role == 'FuelStation-Office') {
+                        this.$router.push('gasolinera/generar')
+                    } else if (response.role == 'FuelStation-Operations') {
+                        this.$router.push('gasolinera')
+                    } else if (response.role == 'NicolasRomero') {
+                        this.$router.push('nicolas_romero')
+                    }
                 })
                 .catch(error => {
                     this.$store.commit('loginFailed', {error})

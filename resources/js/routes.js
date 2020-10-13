@@ -5,10 +5,13 @@ import ListOfCodes from './pages/nicolasRomero/ListOfCodes'
 import ImportExcel from './pages/nicolasRomero/ImportExcel'
 import ViewDetails from './pages/nicolasRomero/ViewDetails'
 
-import IndexFuelStation from './pages/fuelStation/Index'
+import IndexFuelStationOffice from './pages/fuelStation/IndexOffice'
+import GenerateBitacora from './pages/fuelStation/GenerateBitacora'
+import GenerateReport from './pages/fuelStation/GenerateReport'
+
+import IndexFuelStationOperation from './pages/fuelStation/IndexOperation'
 import Refill from './pages/fuelStation/Refill'
 import ScanQRCode from './pages/fuelStation/ScanQRCode'
-import GenerateReport from './pages/fuelStation/GenerateReport'
 
 export const routes = [
     
@@ -18,8 +21,18 @@ export const routes = [
         name: 'Login'
     },
     {
+        path: '/ver/:uuid/:type',
+        component: ViewDetails,
+    },
+    {
+        path :'*',
+        component: Login
+        // Redirigir a pantalla con mensaje de 'bienvenido a sistemas no se queeeeee'
+    },
+    {
         path: '/nicolas_romero',
         component: IndexNicolasRomero,
+        name: 'NicolasRomero',
         meta: {
             requiresAuth: true,
             nicolasRomeroAuth: true,
@@ -34,15 +47,12 @@ export const routes = [
                 path: 'importar_excel',
                 component: ImportExcel,
             },
-            {
-                path: 'ver_vigencia/:uuid/:type',
-                component: ViewDetails,
-            },
         ]
     },
     {
         path: '/gasolinera',
-        component: IndexFuelStation,
+        component: IndexFuelStationOperation,
+        name: 'FuelStation',
         meta: {
             requiresAuth: true,
             fuelStationAuth: true
@@ -58,12 +68,24 @@ export const routes = [
                 component: Refill,
                 name: 'Refill'
             },
-            {
-                path: 'generar_reportes',
-                component: GenerateReport,
-                name: 'GenerateReport'
-            }
         ]
     },
+    {
+        path: '/gasolinera/generar',
+        component: IndexFuelStationOffice,
+        name: 'IndexFuelStationOffice',
+        children: [
+            {
+                path: 'reporte',
+                component: GenerateReport,
+                name: 'GenerateReport'
+            },
+            {
+                path: 'bitacora',
+                component: GenerateBitacora,
+                name: 'GenerateBitacora'
+            },
+        ]
+    }
     
 ]
