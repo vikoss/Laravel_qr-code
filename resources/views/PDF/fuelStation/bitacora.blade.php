@@ -161,10 +161,10 @@ $totalAcumulado = 0;
             @endphp
             <tr>
                 <td>Servicios el campino SA de CV</td>
-                <td>{{ $refill['liters'] }}</td>
+                <td>{{ $refill['invoice'] }}</td>
                 <td>{{ $refill['ticket_amount'] }}</td>
                 <td>{{ $refill['liters'] }}</td>
-                <td>{{ $refill['liters'] }}</td>
+                <td>{{ $refill['liters_additives'] }}</td>
                 <td>{{ $recorrido }}</td>
                 <td>{{ $refill['mileage'] }}</td>
                 <td>{{ $kmLiter }}</td>

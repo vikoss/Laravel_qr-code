@@ -35,9 +35,6 @@
                 <input type="text" class="form-control" id="mileage" required v-model="refill.mileage">
             </div>
            
-            <div class="form-group margin-bottom-zero">
-                <label for="type">Tipo</label>
-            </div>
             <div class="form-group">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="Magna" required v-model="refill.type">
@@ -61,6 +58,21 @@
                 <label for="liters">Litros</label>
                 <input type="text" class="form-control" id="liters" required v-model="refill.liters">
             </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="additives">
+                <label class="custom-control-label" for="customSwitch1">Se agregaron aditivos</label>
+            </div>
+            <span v-if="additives">
+                <div class="form-group">
+                    <label for="liters_additives">Litros de aditivos</label>
+                    <input type="text" class="form-control" id="liters_additives" required v-model="refill.liters_additives">
+                </div>
+                <div class="form-group">
+                    <label for="amount_additives">Monto (Solo aditivos)</label>
+                    <input type="text" class="form-control" id="amount_additives" required v-model="refill.amount_additives">
+                </div>
+            </span>
+
             <div class="form-group">
                 <label for="ticket_id">Ticket ID</label>
                 <input type="text" class="form-control" id="ticket_id" required v-model="refill.ticket_id">
@@ -101,6 +113,7 @@ export default {
             viewDetails: true,
             viewRefill: false,
             modalSuccess: false,
+            additives: false,
             refill: {
                 vehicle_uuid: '',
                 mileage: '',
@@ -108,6 +121,8 @@ export default {
                 liters: '',
                 ticket_id: '',
                 ticket_amount: '',
+                liters_additives: '',
+                amount_additives: ''
             },
             //getVehicleUUID: '405cb030-f905-11ea-94ee-cf6e1aaae8be'
         }

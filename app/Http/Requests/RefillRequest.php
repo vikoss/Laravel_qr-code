@@ -24,12 +24,14 @@ class RefillRequest extends FormRequest
     public function rules()
     {
         return [
-            'vehicle_uuid'  => "required",
-            'mileage'       => "required",
-            'type'          => "required",
-            'liters'        => "required",
-            'ticket_id'     => "required",
-            'ticket_amount' => "required",
+            'vehicle_uuid'      => "required",
+            'mileage'           => "required",
+            'type'              => "required",
+            'liters'            => "required",
+            'ticket_id'         => "required",
+            'ticket_amount'     => "required",
+            'liters_additives'  => "nullable",
+            'amount_additives'  => "nullable",
         ];
     }
 }

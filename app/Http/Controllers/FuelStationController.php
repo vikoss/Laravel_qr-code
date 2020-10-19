@@ -8,6 +8,7 @@ use App\ModelsFuelStation\Refill;
 use App\ModelsFuelStation\Dependency;
 use App\Http\Requests\RefillRequest;
 use Barryvdh\DomPDF\Facade as PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Response;
 use Carbon\Carbon;
 
@@ -91,5 +92,18 @@ class FuelStationController extends Controller
     public function getVehicles()
     {
         return Vehicle::select('uuid', 'vehicle')->get();
+    }
+
+    public function getQrOfVehicles()
+    {
+        $vehicles = Vehicle::select('uuid', 'vehicle')->get();
+        
+        foreach ($vehicles as $key => $vehicle) {
+            $vehicle->qr = base64_encode( QrCode::format('png')->size(200)->generate( $vehicle->uuid ) );
+        }
+
+        $pdf = PDF::loadView('PDF.fuelStation.qrCodes', ['vehicles' => $vehicles])->download('qrCodes.pdf');
+        
+        return ['pdf' => base64_encode($pdf)];
     }
 }

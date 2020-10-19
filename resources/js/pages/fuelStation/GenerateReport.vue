@@ -123,9 +123,8 @@ export default {
             const end_date = arrayEnd[0] + '-' + (0 + arrayEnd[1]).slice(-2) + '-' + ('0' + arrayEnd[2]).slice(-2)
             const start_date = arrayStart[0] + '-' + (0 + arrayStart[1]).slice(-2) + '-' + ('0' + arrayStart[2]).slice(-2)
             return {
-                uuid: this.uuid,
+                dependency: this.dependency,
                 invoice: this.invoice,
-                start_date: this.calendarData.dateRange.start,
                 end_date,
                 start_date
 

@@ -2440,8 +2440,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2564,12 +2562,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var arrayEnd = dateEndString.split('-');
       var end_date = arrayEnd[0] + '-' + (0 + arrayEnd[1]).slice(-2) + '-' + ('0' + arrayEnd[2]).slice(-2);
       var start_date = arrayStart[0] + '-' + (0 + arrayStart[1]).slice(-2) + '-' + ('0' + arrayStart[2]).slice(-2);
-      return _defineProperty({
-        uuid: this.uuid,
+      return {
+        dependency: this.dependency,
         invoice: this.invoice,
-        start_date: this.calendarData.dateRange.start,
-        end_date: end_date
-      }, "start_date", start_date);
+        end_date: end_date,
+        start_date: start_date
+      };
     }
   }
 });
@@ -2733,6 +2731,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2752,13 +2762,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       viewDetails: true,
       viewRefill: false,
       modalSuccess: false,
+      additives: false,
       refill: {
         vehicle_uuid: '',
         mileage: '',
         type: '',
         liters: '',
         ticket_id: '',
-        ticket_amount: ''
+        ticket_amount: '',
+        liters_additives: '',
+        amount_additives: ''
       } //getVehicleUUID: '405cb030-f905-11ea-94ee-cf6e1aaae8be'
 
     };
@@ -46209,8 +46222,6 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
@@ -46383,6 +46394,132 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "custom-control custom-switch" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.additives,
+                      expression: "additives"
+                    }
+                  ],
+                  staticClass: "custom-control-input",
+                  attrs: { type: "checkbox", id: "customSwitch1" },
+                  domProps: {
+                    checked: Array.isArray(_vm.additives)
+                      ? _vm._i(_vm.additives, null) > -1
+                      : _vm.additives
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.additives,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.additives = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.additives = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.additives = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-control-label",
+                    attrs: { for: "customSwitch1" }
+                  },
+                  [_vm._v("Se agregaron aditivos")]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.additives
+                ? _c("span", [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "liters_additives" } }, [
+                        _vm._v("Litros de aditivos")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.refill.liters_additives,
+                            expression: "refill.liters_additives"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "liters_additives",
+                          required: ""
+                        },
+                        domProps: { value: _vm.refill.liters_additives },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.refill,
+                              "liters_additives",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "amount_additives" } }, [
+                        _vm._v("Monto (Solo aditivos)")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.refill.amount_additives,
+                            expression: "refill.amount_additives"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "amount_additives",
+                          required: ""
+                        },
+                        domProps: { value: _vm.refill.amount_additives },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.refill,
+                              "amount_additives",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "ticket_id" } }, [
                   _vm._v("Ticket ID")
@@ -46464,14 +46601,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [_c("strong", [_vm._v("Ninguno.")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group margin-bottom-zero" }, [
-      _c("label", { attrs: { for: "type" } }, [_vm._v("Tipo")])
-    ])
   }
 ]
 render._withStripped = true
