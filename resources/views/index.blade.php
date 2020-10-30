@@ -4,9 +4,10 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Certificaciones QR</title>
 
-        <title>Laravel</title>
-
+        <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.jpg') }}"/>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     </head>
