@@ -21,35 +21,3 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
-
-
-Route::group(['prefix' => 'nicolas_romero'], function ($router) {
-
-    Route::post('upload_excel', 'NicolasRomeroController@importExcel')->name('import');
-    Route::post('view_pdf', 'NicolasRomeroController@viewPDF')->name('view_pdf');
-    Route::get('get_list', 'NicolasRomeroController@getList')->name('index');
-    Route::get('delete_tax/{tax}', 'NicolasRomeroController@delete')->name('delete.tax');
-    Route::get('ver_vigencia/{uuid}/{type}', 'NicolasRomeroController@getDetails')->name('show');
-
-    /*
-    integrar una API para busqueda de Tax's
-    */
-});
-
-
-Route::group(['prefix' => 'fuel_station'], function ($router) {
-    
-    Route::get('prueba', 'FuelStationController@prueba')->name('prueba');
-
-    Route::get('get_vehicle/{uuid}', 'FuelStationController@getVehicle')->name('get_vehicle');
-    Route::get('get_vehicles', 'FuelStationController@getVehicles')->name('get_vehicles');
-    Route::post('save_refill', 'FuelStationController@saveRefill')->name('save_refill');
-    Route::get('get_dependencies', 'FuelStationController@getDependencies')->name('get_dependencies');
-    Route::get('get_all_dependencies', 'FuelStationController@getAllDependencies')->name('get_all_dependencies');
-    Route::post('get_bitacora', 'FuelStationController@getBitacora')->name('get_bitacora');
-    Route::post('get_report', 'FuelStationController@getReport')->name('get_report');
-
-    // Ruta para generar los codigos qr de cada vehiculo
-    Route::get('get_qr_codes', 'FuelStationController@getQrOfVehicles')->name('get_qr_codes');
-
-});

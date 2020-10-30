@@ -1,1 +1,1 @@
-export const baseURL = 'http://127.0.0.1:9010/api'
+export const baseURL = process.env.NODE_ENV === 'production' ? 'https://certificacion-qr.ml/api' : 'http://127.0.0.1:9010/api'

@@ -2301,6 +2301,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2328,6 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2369,31 +2377,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.GetVehicles();
+    this.GetVehicles(this.currentUser.token);
   },
   methods: {
-    GetVehicles: function GetVehicles() {
+    GetVehicles: function GetVehicles(token) {
       var _this = this;
 
-      Object(_services_fuelStation_getVehicles__WEBPACK_IMPORTED_MODULE_1__["getVehicles"])().then(function (response) {
+      Object(_services_fuelStation_getVehicles__WEBPACK_IMPORTED_MODULE_1__["getVehicles"])(token).then(function (response) {
         _this.listOfVehicles = response;
-        console.log(response);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     GetBitacora: function GetBitacora() {
       var _this2 = this;
 
-      Object(_services_fuelStation_getBitacora__WEBPACK_IMPORTED_MODULE_2__["getBitacora"])(this.payload).then(function (response) {
+      Object(_services_fuelStation_getBitacora__WEBPACK_IMPORTED_MODULE_2__["getBitacora"])(this.payload, this.currentUser.token).then(function (response) {
         if (response.pdf) {
           _this2.modalPDF = true;
           _this2.encodedPDF = response.pdf;
         }
-
-        console.log(response);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     closeModalPDF: function closeModalPDF() {
@@ -2401,7 +2406,7 @@ __webpack_require__.r(__webpack_exports__);
       this.encodedPDF = null; //this.payload = null
     }
   },
-  computed: {
+  computed: _objectSpread({
     payload: function payload() {
       var dateStartString = this.calendarData.dateRange.start || '1980-1-1';
       var arrayStart = dateStartString.split('-');
@@ -2418,7 +2423,7 @@ __webpack_require__.r(__webpack_exports__);
     Success: function Success() {
       return !!this.payload.uuid && this.payload.start_date != '1980-01-01' && this.payload.end_date != '1980-01-01';
     }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])(['currentUser']))
 });
 
 /***/ }),
@@ -2440,6 +2445,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2478,6 +2490,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2521,32 +2534,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.GetDependencies();
+    this.GetDependencies(this.currentUser.token);
   },
   methods: {
-    GetDependencies: function GetDependencies() {
+    GetDependencies: function GetDependencies(token) {
       var _this = this;
 
-      Object(_services_fuelStation_getDependencies__WEBPACK_IMPORTED_MODULE_1__["getDependencies"])().then(function (response) {
+      Object(_services_fuelStation_getDependencies__WEBPACK_IMPORTED_MODULE_1__["getDependencies"])(token).then(function (response) {
         _this.listOfDependencies = response;
-        console.log(response);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     GetReport: function GetReport() {
       var _this2 = this;
 
-      Object(_services_fuelStation_getReport__WEBPACK_IMPORTED_MODULE_2__["getReport"])(this.payload).then(function (response) {
+      Object(_services_fuelStation_getReport__WEBPACK_IMPORTED_MODULE_2__["getReport"])(this.payload, this.currentUser.token).then(function (response) {
         if (response.pdf) {
           _this2.modalPDF = true;
           _this2.encodedPDF = response.pdf;
         }
 
         _this2.listOfVehicles = response;
-        console.log(response);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     closeModalPDF: function closeModalPDF() {
@@ -2554,7 +2565,7 @@ __webpack_require__.r(__webpack_exports__);
       this.encodedPDF = null; //this.payload = null
     }
   },
-  computed: {
+  computed: _objectSpread({
     payload: function payload() {
       var dateStartString = this.calendarData.dateRange.start || '2020-1-1';
       var arrayStart = dateStartString.split('-');
@@ -2569,7 +2580,7 @@ __webpack_require__.r(__webpack_exports__);
         start_date: start_date
       };
     }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])(['currentUser']))
 });
 
 /***/ }),
@@ -2779,16 +2790,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.GetVehicle(this.getVehicleUUID);
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['getVehicleUUID'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['getVehicleUUID', 'currentUser'])),
   methods: {
     GetVehicle: function GetVehicle(uuid) {
       var _this = this;
 
-      Object(_services_fuelStation_getVehicle__WEBPACK_IMPORTED_MODULE_3__["getVehicle"])(this.getVehicleUUID).then(function (response) {
+      Object(_services_fuelStation_getVehicle__WEBPACK_IMPORTED_MODULE_3__["getVehicle"])(this.getVehicleUUID, this.currentUser.token).then(function (response) {
         _this.vehicle = response;
-        console.log(response);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     RefillData: function RefillData() {
@@ -2799,12 +2809,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.refill.vehicle_uuid = this.getVehicleUUID;
-      Object(_services_fuelStation_sendRefill__WEBPACK_IMPORTED_MODULE_4__["sendRefill"])(this.refill).then(function (response) {
+      Object(_services_fuelStation_sendRefill__WEBPACK_IMPORTED_MODULE_4__["sendRefill"])(this.refill, this.currentUser.token).then(function (response) {
         if (response.success) {
           _this2.modalSuccess = true;
         }
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     }
   },
@@ -2890,7 +2900,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_nicolasRomero_uploadExcel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../services/nicolasRomero/uploadExcel */ "./resources/js/services/nicolasRomero/uploadExcel.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _services_nicolasRomero_uploadExcel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../services/nicolasRomero/uploadExcel */ "./resources/js/services/nicolasRomero/uploadExcel.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2915,6 +2932,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'other',
   data: function data() {
@@ -2926,6 +2944,7 @@ __webpack_require__.r(__webpack_exports__);
       empty: true
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['currentUser'])),
   methods: {
     handleFile: function handleFile() {
       this.file = this.$refs.file.files[0];
@@ -2942,7 +2961,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       formData.append('file', this.file);
-      Object(_services_nicolasRomero_uploadExcel__WEBPACK_IMPORTED_MODULE_0__["uploadExcel"])(formData).then(function (response) {
+      Object(_services_nicolasRomero_uploadExcel__WEBPACK_IMPORTED_MODULE_1__["uploadExcel"])(formData, this.currentUser.token).then(function (response) {
         if (response.success) {
           _this.success = true;
           _this.errors = false;
@@ -3002,6 +3021,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_nicolasRomero_deleteTax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../services/nicolasRomero/deleteTax */ "./resources/js/services/nicolasRomero/deleteTax.js");
 /* harmony import */ var _components_nicolasRomero_ModalPDF__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../components/nicolasRomero/ModalPDF */ "./resources/js/components/nicolasRomero/ModalPDF.vue");
 /* harmony import */ var _components_nicolasRomero_ModalConfirm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../components/nicolasRomero/ModalConfirm */ "./resources/js/components/nicolasRomero/ModalConfirm.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3076,6 +3102,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -3105,21 +3132,20 @@ __webpack_require__.r(__webpack_exports__);
     getResults: function getResults(page) {
       var _this = this;
 
-      Object(_services_nicolasRomero_getList__WEBPACK_IMPORTED_MODULE_0__["getList"])(!!page ? page : 1).then(function (response) {
+      Object(_services_nicolasRomero_getList__WEBPACK_IMPORTED_MODULE_0__["getList"])(!!page ? page : 1, this.currentUser.token).then(function (response) {
         _this.data = response;
-        console.log(response);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     ViewPDF: function ViewPDF(payload) {
       var _this2 = this;
 
       this.modalPDF = true;
-      Object(_services_nicolasRomero_getPDF__WEBPACK_IMPORTED_MODULE_1__["getPDF"])(payload).then(function (response) {
+      Object(_services_nicolasRomero_getPDF__WEBPACK_IMPORTED_MODULE_1__["getPDF"])(payload, this.currentUser.token).then(function (response) {
         _this2.encodedPDF = response.pdf;
       })["catch"](function (error) {
-        console.log(error);
+        console.log('error');
       });
     },
     ShowModalConfirm: function ShowModalConfirm(tax, key) {
@@ -3130,7 +3156,7 @@ __webpack_require__.r(__webpack_exports__);
     Delete: function Delete(uuid) {
       var _this3 = this;
 
-      Object(_services_nicolasRomero_deleteTax__WEBPACK_IMPORTED_MODULE_2__["deleteTax"])(uuid).then(function (response) {
+      Object(_services_nicolasRomero_deleteTax__WEBPACK_IMPORTED_MODULE_2__["deleteTax"])(uuid, this.currentUser.token).then(function (response) {
         if (response.success) {
           _this3.data.data.splice(_this3.indexOfTax, 1);
         }
@@ -3143,7 +3169,7 @@ __webpack_require__.r(__webpack_exports__);
       this.encodedPDF = null;
     }
   },
-  computed: {
+  computed: _objectSpread({
     pagesNumber: function pagesNumber() {
       if (!this.data.to) {
         return [];
@@ -3169,7 +3195,7 @@ __webpack_require__.r(__webpack_exports__);
 
       return pagesArray;
     }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['currentUser']))
 });
 
 /***/ }),
@@ -46016,7 +46042,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", id: "invoice", required: "" },
+              attrs: { type: "text", id: "invoice" },
               domProps: { value: _vm.invoice },
               on: {
                 input: function($event) {
@@ -46806,7 +46832,11 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        attrs: { disabled: !tax.CLAVE_Y_VALOR_CATASTRAL },
+                        attrs: {
+                          disabled:
+                            !tax.CLAVE_Y_VALOR_CATASTRAL ||
+                            tax.CLAVE_Y_VALOR_CATASTRAL === "***"
+                        },
                         on: {
                           click: function($event) {
                             return _vm.ViewPDF({ uuid: tax.uuid, type: "CV" })
@@ -46821,7 +46851,11 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        attrs: { disabled: !tax.NO_ADEUDO_PREDIAL },
+                        attrs: {
+                          disabled:
+                            !tax.NO_ADEUDO_PREDIAL ||
+                            tax.NO_ADEUDO_PREDIAL === "***"
+                        },
                         on: {
                           click: function($event) {
                             return _vm.ViewPDF({ uuid: tax.uuid, type: "PP" })
@@ -46836,7 +46870,11 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        attrs: { disabled: !tax.APORTACIONES_MEJORAS },
+                        attrs: {
+                          disabled:
+                            !tax.APORTACIONES_MEJORAS ||
+                            tax.APORTACIONES_MEJORAS === "***"
+                        },
                         on: {
                           click: function($event) {
                             return _vm.ViewPDF({ uuid: tax.uuid, type: "AM" })
@@ -65256,7 +65294,7 @@ function login(credentials) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseURL", function() { return baseURL; });
-var baseURL = 'http://127.0.0.1:9010/api';
+var baseURL =  false ? undefined : 'http://127.0.0.1:9010/api';
 
 /***/ }),
 
@@ -65272,8 +65310,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBitacora", function() { return getBitacora; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getBitacora(payload) {
-  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_bitacora"), payload).then(function (response) {
+function getBitacora(payload, token) {
+  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_bitacora"), payload, {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65294,8 +65336,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDependencies", function() { return getDependencies; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getDependencies() {
-  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_dependencies")).then(function (response) {
+function getDependencies(token) {
+  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_dependencies"), {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65316,8 +65362,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getReport", function() { return getReport; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getReport(payload) {
-  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_report"), payload).then(function (response) {
+function getReport(payload, token) {
+  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_report"), payload, {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65338,8 +65388,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getVehicle", function() { return getVehicle; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getVehicle(uuid) {
-  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_vehicle/").concat(uuid)).then(function (response) {
+function getVehicle(uuid, token) {
+  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_vehicle/").concat(uuid), {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65360,8 +65414,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getVehicles", function() { return getVehicles; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getVehicles() {
-  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_vehicles")).then(function (response) {
+function getVehicles(token) {
+  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/get_vehicles"), {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65382,8 +65440,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendRefill", function() { return sendRefill; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function sendRefill(refill) {
-  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/save_refill"), refill).then(function (response) {
+function sendRefill(refill, token) {
+  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/fuel_station/save_refill"), refill, {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65404,8 +65466,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTax", function() { return deleteTax; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function deleteTax(uuid) {
-  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/delete_tax/").concat(uuid)).then(function (response) {
+function deleteTax(uuid, token) {
+  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/delete_tax/").concat(uuid), {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65426,8 +65492,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getList", function() { return getList; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getList(page) {
-  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/get_list?page=").concat(page)).then(function (response) {
+function getList(page, token) {
+  return axios.get("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/get_list?page=").concat(page), {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65448,8 +65518,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPDF", function() { return getPDF; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function getPDF(payload) {
-  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/view_pdf"), payload).then(function (response) {
+function getPDF(payload, token) {
+  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/view_pdf"), payload, {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);
@@ -65492,8 +65566,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uploadExcel", function() { return uploadExcel; });
 /* harmony import */ var _baseURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../baseURL */ "./resources/js/services/baseURL.js");
 
-function uploadExcel(file) {
-  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/upload_excel"), file).then(function (response) {
+function uploadExcel(file, token) {
+  return axios.post("".concat(_baseURL__WEBPACK_IMPORTED_MODULE_0__["baseURL"], "/nicolas_romero/upload_excel"), file, {
+    headers: {
+      Authorization: "Bearer ".concat(token)
+    }
+  }).then(function (response) {
     return response.data;
   })["catch"](function (error) {
     return console.error(error);

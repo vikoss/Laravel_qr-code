@@ -67,7 +67,7 @@ class NicolasRomeroController extends Controller
 
         $stringCode = "{$request->type}{$numberTax}|{$tax->CLAVE_CAT}|{$tax->FECHA_EMISION}|{$request->uuid}".base64_encode($tax->NOMBRE);
       
-        $pdf = PDF::loadView('pdf', ['qrCode' => $qrCode, 'stringCode' => $stringCode ])->download('archivo.pdf');
+        $pdf = PDF::loadView('PDF.nicolasRomero.qrCode', ['qrCode' => $qrCode, 'stringCode' => $stringCode ])->download('archivo.pdf');
 
         return ['pdf' => base64_encode($pdf)];
     }

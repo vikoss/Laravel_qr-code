@@ -22,7 +22,7 @@
         <form @submit.prevent="">
             <div class="form-group">
                 <label for="invoice">Numero de factura</label>
-                <input type="text" class="form-control" id="invoice" required v-model="invoice">
+                <input type="text" class="form-control" id="invoice" v-model="invoice">
             </div>
             <button type="submot" class="btn btn-primary btn-lg" v-on:click="GetReport">Generar reporte</button>
         </form>
@@ -43,6 +43,7 @@ import { getReport } from './../../services/fuelStation/getReport'
 import ModalPDF from './../../components/nicolasRomero/ModalPDF'
 import vSelect from "vue-select"
 import "vue-select/dist/vue-select.css"
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
@@ -81,31 +82,29 @@ export default {
         }
     },
     mounted() {
-        this.GetDependencies()
+        this.GetDependencies(this.currentUser.token)
     },
     methods: {
-        GetDependencies() {
-            getDependencies()
+        GetDependencies(token) {
+            getDependencies(token)
                 .then(response => {
                     this.listOfDependencies = response
-                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         GetReport() {
-            getReport(this.payload)
+            getReport(this.payload, this.currentUser.token)
                 .then(response => {
                     if (response.pdf) {
                         this.modalPDF = true
                         this.encodedPDF = response.pdf
                     }
                     this.listOfVehicles = response
-                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         closeModalPDF() {
@@ -129,7 +128,8 @@ export default {
                 start_date
 
             }
-        }
+        },
+        ...mapGetters(['currentUser'])
     }
 
 }

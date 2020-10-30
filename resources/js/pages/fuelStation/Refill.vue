@@ -131,17 +131,16 @@ export default {
         this.GetVehicle(this.getVehicleUUID)
     },
     computed: {
-        ...mapGetters(['getVehicleUUID'])
+        ...mapGetters(['getVehicleUUID', 'currentUser'])
     },
     methods: {
         GetVehicle(uuid) {
-            getVehicle(this.getVehicleUUID)
+            getVehicle(this.getVehicleUUID, this.currentUser.token)
                 .then(response => {
                     this.vehicle = response
-                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         RefillData() {
@@ -150,14 +149,14 @@ export default {
         },
         SendRefill() {
             this.refill.vehicle_uuid = this.getVehicleUUID
-            sendRefill(this.refill)
+            sendRefill(this.refill, this.currentUser.token)
                 .then(response => {
                     if (response.success) {
                         this.modalSuccess = true
                     }
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         }
 

@@ -18,13 +18,13 @@
                             {{ tax.EXP }}
                         </th>
                         <td>
-                            <button :disabled="!tax.CLAVE_Y_VALOR_CATASTRAL" @click="ViewPDF({uuid:tax.uuid, type: 'CV'})">{{ tax.CLAVE_Y_VALOR_CATASTRAL || 'n/a' }}</button>
+                            <button :disabled="!tax.CLAVE_Y_VALOR_CATASTRAL || tax.CLAVE_Y_VALOR_CATASTRAL === '***'" @click="ViewPDF({uuid:tax.uuid, type: 'CV'})">{{ tax.CLAVE_Y_VALOR_CATASTRAL || 'n/a' }}</button>
                         </td>
                         <td>
-                            <button :disabled="!tax.NO_ADEUDO_PREDIAL" @click="ViewPDF({uuid:tax.uuid, type: 'PP'})">{{ tax.NO_ADEUDO_PREDIAL || 'n/a' }}</button>
+                            <button :disabled="!tax.NO_ADEUDO_PREDIAL || tax.NO_ADEUDO_PREDIAL === '***'" @click="ViewPDF({uuid:tax.uuid, type: 'PP'})">{{ tax.NO_ADEUDO_PREDIAL || 'n/a' }}</button>
                         </td>
                         <td>
-                            <button :disabled="!tax.APORTACIONES_MEJORAS" @click="ViewPDF({uuid:tax.uuid, type: 'AM'})">{{ tax.APORTACIONES_MEJORAS || 'n/a' }}</button>
+                            <button :disabled="!tax.APORTACIONES_MEJORAS || tax.APORTACIONES_MEJORAS === '***'" @click="ViewPDF({uuid:tax.uuid, type: 'AM'})">{{ tax.APORTACIONES_MEJORAS || 'n/a' }}</button>
                         </td>
                         <td>
                             {{ tax.NOMBRE }}
@@ -78,6 +78,7 @@ import { getPDF } from './../../services/nicolasRomero/getPDF'
 import { deleteTax } from './../../services/nicolasRomero/deleteTax'
 import ModalPDF from './../../components/nicolasRomero/ModalPDF'
 import ModalConfirm from './../../components/nicolasRomero/ModalConfirm'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'ListOfCodes',
@@ -101,23 +102,22 @@ export default {
     },
     methods: {
         getResults(page) {
-            getList(!!page ? page : 1)
+            getList(!!page ? page : 1, this.currentUser.token)
                 .then(response => {
                     this.data = response
-                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         ViewPDF(payload) {
             this.modalPDF = true
-            getPDF(payload)
+            getPDF(payload, this.currentUser.token)
                 .then(response => {
                     this.encodedPDF = response.pdf
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         ShowModalConfirm(tax, key) {
@@ -126,7 +126,7 @@ export default {
             this.indexOfTax = key
         },
         Delete(uuid) {
-            deleteTax(uuid)
+            deleteTax(uuid, this.currentUser.token)
                 .then(response => {
                     if (response.success) {
                         this.data.data.splice(this.indexOfTax, 1)
@@ -159,7 +159,8 @@ export default {
             pagesArray.push(page);
             }
             return pagesArray;
-        }
+        },
+        ...mapGetters(['currentUser'])
     }
 }
 </script>

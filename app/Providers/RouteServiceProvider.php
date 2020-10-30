@@ -46,8 +46,6 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapStationRoutes();
-
         //
     }
 
@@ -77,21 +75,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
-    }
-
-    /**
-     * Define the "station" routes for the application.
-     *
-     * These routes are used for project fuel station.
-     *
-     * @return void
-     */
-    protected function mapStationRoutes()
-    {
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/station.php'));
+            ->group(function($router) {
+                require base_path('routes/api.php');
+                require base_path('routes/station.php');
+                require base_path('routes/nicolasRomero.php');
+            });
     }
 }

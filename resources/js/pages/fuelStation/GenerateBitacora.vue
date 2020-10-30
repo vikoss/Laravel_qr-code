@@ -32,6 +32,7 @@ import { getBitacora } from './../../services/fuelStation/getBitacora'
 import ModalPDF from './../../components/nicolasRomero/ModalPDF'
 import vSelect from "vue-select"
 import "vue-select/dist/vue-select.css"
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
@@ -68,30 +69,28 @@ export default {
         }
     },
     mounted() {
-        this.GetVehicles()
+        this.GetVehicles(this.currentUser.token)
     },
     methods: {
-        GetVehicles() {
-            getVehicles()
+        GetVehicles(token) {
+            getVehicles(token)
                 .then(response => {
                     this.listOfVehicles = response
-                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         GetBitacora() {
-            getBitacora(this.payload)
+            getBitacora(this.payload, this.currentUser.token)
                 .then(response => {
                     if (response.pdf) {
                         this.modalPDF = true
                         this.encodedPDF = response.pdf
                     }
-                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('error')
                 })
         },
         closeModalPDF() {
@@ -118,7 +117,8 @@ export default {
         },
         Success() {
             return !!this.payload.uuid && this.payload.start_date != '1980-01-01' && this.payload.end_date != '1980-01-01'
-        }
+        },
+        ...mapGetters(['currentUser'])
     }
 
 }

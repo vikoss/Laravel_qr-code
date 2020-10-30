@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Response;
 use Carbon\Carbon;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class FuelStationController extends Controller
 {
@@ -29,10 +30,15 @@ class FuelStationController extends Controller
 
     public function saveRefill(RefillRequest $refill)
     {
-        // Consultar primero el modelo vehicle vehicle->refill->create();
-        Refill::create($refill->validated());
+        $vehicle = Vehicle::whereUuid($refill->vehicle_uuid)->first();
+        $vehicle->refills()->create($refill->validated());
+
+        Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_CHANNEL_ID'),
+            'text' => "Recargo {$refill->liters} litros el vehiculo {$vehicle->vehicle}."
+        ]);
         
-        return Response::json(['success' => true], 200);;
+        return Response::json(['success' => true], 200);
     }
 
     public function getBitacora(Request $request)
@@ -64,7 +70,11 @@ class FuelStationController extends Controller
     public function getReport(Request $request)
     {
         $data = Dependency::whereName($request->dependency)->with(['vehicle.refills' => function ($query) use ($request) {
-            return $query->whereBetween('created_at',[$request->start_date, $request->end_date])->update(['invoice'=>$request->invoice]);
+            if ($request->invoice) {
+                return $query->whereBetween('created_at',[$request->start_date, $request->end_date])->update(['invoice'=>$request->invoice]);
+            } else {
+                return $query->whereBetween('created_at',[$request->start_date, $request->end_date]);
+            }
         }])->get();
 
         $dataPDF = [

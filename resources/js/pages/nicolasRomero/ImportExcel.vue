@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { uploadExcel } from './../../services/nicolasRomero/uploadExcel'
 
 export default {
@@ -34,6 +35,9 @@ export default {
             errors: false,
             empty: true,
         }
+    },
+    computed: {
+        ...mapGetters(['currentUser'])
     },
     methods: {
         handleFile() {
@@ -51,7 +55,7 @@ export default {
 
             formData.append('file', this.file)
 
-            uploadExcel(formData)
+            uploadExcel(formData, this.currentUser.token)
                 .then(response => {
                     if (response.success) {
                         this.success = true
