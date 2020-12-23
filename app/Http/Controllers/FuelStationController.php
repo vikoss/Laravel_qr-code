@@ -106,14 +106,16 @@ class FuelStationController extends Controller
 
     public function getQrOfVehicles()
     {
-        $vehicles = Vehicle::select('uuid', 'vehicle')->get();
-        
+        $vehicles = request('vehicles') ?
+            Vehicle::select('uuid', 'vehicle')->whereIn('vehicle', request('vehicles'))->get() :
+            Vehicle::select('uuid', 'vehicle')->get();
+
         foreach ($vehicles as $key => $vehicle) {
             $vehicle->qr = base64_encode( QrCode::format('png')->size(200)->generate( $vehicle->uuid ) );
         }
 
         $pdf = PDF::loadView('PDF.fuelStation.qrCodes', ['vehicles' => $vehicles])->download('qrCodes.pdf');
-        
+
         return ['pdf' => base64_encode($pdf)];
     }
 }

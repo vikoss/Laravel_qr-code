@@ -28,6 +28,6 @@ Route::group(['prefix' => 'fuel_station', 'middleware' => 'jwt.auth'], function 
     Route::post('get_report', 'FuelStationController@getReport')->name('get_report');
 
     // Ruta para generar los codigos qr de cada vehiculo
-    Route::get('get_qr_codes', 'FuelStationController@getQrOfVehicles')->name('get_qr_codes');
+    Route::post('get_qr_codes', 'FuelStationController@getQrOfVehicles')->name('get_qr_codes');
 
 });
