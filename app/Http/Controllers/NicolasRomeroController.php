@@ -18,7 +18,7 @@ class NicolasRomeroController extends Controller
 
     public function getList()
     {
-        return Tax::orderByRaw('CAST("EXP" AS INTEGER) DESC')->paginate(10);
+        return Tax::orderBy('id', 'desc')->paginate(10);
     }
 
     public function gelAll()
