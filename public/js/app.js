@@ -1,6 +1,50 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 	};
+/******/
+/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"/js/app": 0
+/******/ 	};
+/******/
+/******/
+/******/
+/******/ 	// script path function
+/******/ 	function jsonpScriptSrc(chunkId) {
+/******/ 		return __webpack_require__.p + "" + ({"ModulePaysheet10":"ModulePaysheet10","ModulePaysheet11":"ModulePaysheet11"}[chunkId]||chunkId) + ".js"
+/******/ 	}
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +70,67 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		var promises = [];
+/******/
+/******/
+/******/ 		// JSONP chunk loading for javascript
+/******/
+/******/ 		var installedChunkData = installedChunks[chunkId];
+/******/ 		if(installedChunkData !== 0) { // 0 means "already installed".
+/******/
+/******/ 			// a Promise means "currently loading".
+/******/ 			if(installedChunkData) {
+/******/ 				promises.push(installedChunkData[2]);
+/******/ 			} else {
+/******/ 				// setup Promise in chunk cache
+/******/ 				var promise = new Promise(function(resolve, reject) {
+/******/ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
+/******/ 				});
+/******/ 				promises.push(installedChunkData[2] = promise);
+/******/
+/******/ 				// start chunk loading
+/******/ 				var script = document.createElement('script');
+/******/ 				var onScriptComplete;
+/******/
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.src = jsonpScriptSrc(chunkId);
+/******/
+/******/ 				// create error before stack unwound to get useful stacktrace later
+/******/ 				var error = new Error();
+/******/ 				onScriptComplete = function (event) {
+/******/ 					// avoid mem leaks in IE.
+/******/ 					script.onerror = script.onload = null;
+/******/ 					clearTimeout(timeout);
+/******/ 					var chunk = installedChunks[chunkId];
+/******/ 					if(chunk !== 0) {
+/******/ 						if(chunk) {
+/******/ 							var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 							var realSrc = event && event.target && event.target.src;
+/******/ 							error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 							error.name = 'ChunkLoadError';
+/******/ 							error.type = errorType;
+/******/ 							error.request = realSrc;
+/******/ 							chunk[1](error);
+/******/ 						}
+/******/ 						installedChunks[chunkId] = undefined;
+/******/ 					}
+/******/ 				};
+/******/ 				var timeout = setTimeout(function(){
+/******/ 					onScriptComplete({ type: 'timeout', target: script });
+/******/ 				}, 120000);
+/******/ 				script.onerror = script.onload = onScriptComplete;
+/******/ 				document.head.appendChild(script);
+/******/ 			}
+/******/ 		}
+/******/ 		return Promise.all(promises);
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -78,6 +183,16 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -47062,7 +47177,10 @@ var render = function() {
       _c("div", { staticClass: "col-sm" }, [
         _c("img", {
           staticStyle: { width: "100%", height: "auto" },
-          attrs: { src: "/images/nr_logo.jpg", alt: "Logo Nicolas Romero" }
+          attrs: {
+            src: __webpack_require__(/*! ./../../assets/images/nr_logo.jpg */ "./resources/js/assets/images/nr_logo.jpg"),
+            alt: "Logo Nicolas Romero"
+          }
         })
       ]),
       _vm._v(" "),
@@ -63680,7 +63798,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _components_MainApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/MainApp */ "./resources/js/components/MainApp.vue");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -63689,9 +63807,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-
-/*import QRCodeAtizapan from './store/QRCodeAtizapan/store'
-import FuelStation from './store/fuelStation/store'*/
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -63702,7 +63817,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
 
 var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store(_store_store__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  routes: _routes__WEBPACK_IMPORTED_MODULE_3__["routes"],
+  routes: _router__WEBPACK_IMPORTED_MODULE_3__["routes"],
   mode: 'history'
 });
 router.beforeEach(function (to, from, next) {
@@ -63772,6 +63887,17 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     MainApp: _components_MainApp__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/nr_logo.jpg":
+/*!************************************************!*\
+  !*** ./resources/js/assets/images/nr_logo.jpg ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/nr_logo.jpg?e252157ebab726f55ab295ed62377d72";
 
 /***/ }),
 
@@ -64367,6 +64493,75 @@ function getLocalUser() {
 
   return JSON.parse(userStr);
 }
+
+/***/ }),
+
+/***/ "./resources/js/pages lazy recursive ^\\.\\/.*\\.vue$":
+/*!****************************************************************!*\
+  !*** ./resources/js/pages lazy ^\.\/.*\.vue$ namespace object ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./fuelStation/GenerateBitacora.vue": [
+		"./resources/js/pages/fuelStation/GenerateBitacora.vue"
+	],
+	"./fuelStation/GenerateReport.vue": [
+		"./resources/js/pages/fuelStation/GenerateReport.vue"
+	],
+	"./fuelStation/IndexOffice.vue": [
+		"./resources/js/pages/fuelStation/IndexOffice.vue"
+	],
+	"./fuelStation/IndexOperation.vue": [
+		"./resources/js/pages/fuelStation/IndexOperation.vue"
+	],
+	"./fuelStation/Refill.vue": [
+		"./resources/js/pages/fuelStation/Refill.vue"
+	],
+	"./fuelStation/ScanQRCode.vue": [
+		"./resources/js/pages/fuelStation/ScanQRCode.vue"
+	],
+	"./nicolasRomero/ImportExcel.vue": [
+		"./resources/js/pages/nicolasRomero/ImportExcel.vue"
+	],
+	"./nicolasRomero/Index.vue": [
+		"./resources/js/pages/nicolasRomero/Index.vue"
+	],
+	"./nicolasRomero/ListOfCodes.vue": [
+		"./resources/js/pages/nicolasRomero/ListOfCodes.vue"
+	],
+	"./nicolasRomero/ViewDetails.vue": [
+		"./resources/js/pages/nicolasRomero/ViewDetails.vue"
+	],
+	"./paysheet/Upload.vue": [
+		"./resources/js/pages/paysheet/Upload.vue",
+		"ModulePaysheet10"
+	],
+	"./paysheet/View.vue": [
+		"./resources/js/pages/paysheet/View.vue",
+		"ModulePaysheet11"
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./resources/js/pages lazy recursive ^\\.\\/.*\\.vue$";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -65132,52 +65327,113 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/routes.js":
-/*!********************************!*\
-  !*** ./resources/js/routes.js ***!
-  \********************************/
+/***/ "./resources/js/router/index.js":
+/*!**************************************!*\
+  !*** ./resources/js/router/index.js ***!
+  \**************************************/
 /*! exports provided: routes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
-/* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/auth/Login */ "./resources/js/components/auth/Login.vue");
-/* harmony import */ var _pages_nicolasRomero_Index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/nicolasRomero/Index */ "./resources/js/pages/nicolasRomero/Index.vue");
-/* harmony import */ var _pages_nicolasRomero_ListOfCodes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/nicolasRomero/ListOfCodes */ "./resources/js/pages/nicolasRomero/ListOfCodes.vue");
-/* harmony import */ var _pages_nicolasRomero_ImportExcel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/nicolasRomero/ImportExcel */ "./resources/js/pages/nicolasRomero/ImportExcel.vue");
-/* harmony import */ var _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/nicolasRomero/ViewDetails */ "./resources/js/pages/nicolasRomero/ViewDetails.vue");
-/* harmony import */ var _pages_fuelStation_IndexOffice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/fuelStation/IndexOffice */ "./resources/js/pages/fuelStation/IndexOffice.vue");
-/* harmony import */ var _pages_fuelStation_GenerateBitacora__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/fuelStation/GenerateBitacora */ "./resources/js/pages/fuelStation/GenerateBitacora.vue");
-/* harmony import */ var _pages_fuelStation_GenerateReport__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/fuelStation/GenerateReport */ "./resources/js/pages/fuelStation/GenerateReport.vue");
-/* harmony import */ var _pages_fuelStation_IndexOperation__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/fuelStation/IndexOperation */ "./resources/js/pages/fuelStation/IndexOperation.vue");
-/* harmony import */ var _pages_fuelStation_Refill__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/fuelStation/Refill */ "./resources/js/pages/fuelStation/Refill.vue");
-/* harmony import */ var _pages_fuelStation_ScanQRCode__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/fuelStation/ScanQRCode */ "./resources/js/pages/fuelStation/ScanQRCode.vue");
+/* harmony import */ var _modules_FuelStation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/FuelStation */ "./resources/js/router/modules/FuelStation.js");
+/* harmony import */ var _modules_NicolasRomero__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/NicolasRomero */ "./resources/js/router/modules/NicolasRomero.js");
+/* harmony import */ var _modules_Paysheet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/Paysheet */ "./resources/js/router/modules/Paysheet.js");
+/* harmony import */ var _modules_others__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/others */ "./resources/js/router/modules/others.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+var routes = [].concat(_toConsumableArray(_modules_FuelStation__WEBPACK_IMPORTED_MODULE_0__["default"]), _toConsumableArray(_modules_NicolasRomero__WEBPACK_IMPORTED_MODULE_1__["default"]), _toConsumableArray(_modules_Paysheet__WEBPACK_IMPORTED_MODULE_2__["default"]), _toConsumableArray(_modules_others__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ }),
+
+/***/ "./resources/js/router/modules/FuelStation.js":
+/*!****************************************************!*\
+  !*** ./resources/js/router/modules/FuelStation.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pages_fuelStation_IndexOffice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../pages/fuelStation/IndexOffice */ "./resources/js/pages/fuelStation/IndexOffice.vue");
+/* harmony import */ var _pages_fuelStation_GenerateBitacora__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../pages/fuelStation/GenerateBitacora */ "./resources/js/pages/fuelStation/GenerateBitacora.vue");
+/* harmony import */ var _pages_fuelStation_GenerateReport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../pages/fuelStation/GenerateReport */ "./resources/js/pages/fuelStation/GenerateReport.vue");
+/* harmony import */ var _pages_fuelStation_IndexOperation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../pages/fuelStation/IndexOperation */ "./resources/js/pages/fuelStation/IndexOperation.vue");
+/* harmony import */ var _pages_fuelStation_Refill__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../pages/fuelStation/Refill */ "./resources/js/pages/fuelStation/Refill.vue");
+/* harmony import */ var _pages_fuelStation_ScanQRCode__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../pages/fuelStation/ScanQRCode */ "./resources/js/pages/fuelStation/ScanQRCode.vue");
 
 
 
 
 
 
-
-
-
-
-
-var routes = [{
-  path: '/login',
-  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: 'Login'
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  path: '/gasolinera',
+  component: _pages_fuelStation_IndexOperation__WEBPACK_IMPORTED_MODULE_3__["default"],
+  name: 'FuelStation',
+  meta: {
+    requiresAuth: true,
+    fuelStationAuth: true
+  },
+  children: [{
+    path: '/',
+    component: _pages_fuelStation_ScanQRCode__WEBPACK_IMPORTED_MODULE_5__["default"],
+    name: 'ScanQRCode'
+  }, {
+    path: 'recarga',
+    component: _pages_fuelStation_Refill__WEBPACK_IMPORTED_MODULE_4__["default"],
+    name: 'Refill'
+  }]
 }, {
-  path: '/ver/:uuid/:type',
-  component: _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_4__["default"]
-}, {
-  path: '*',
-  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"] // Redirigir a pantalla con mensaje de 'bienvenido a sistemas no se queeeeee'
+  path: '/gasolinera/generar',
+  component: _pages_fuelStation_IndexOffice__WEBPACK_IMPORTED_MODULE_0__["default"],
+  name: 'IndexFuelStationOffice',
+  children: [{
+    path: 'reporte',
+    component: _pages_fuelStation_GenerateReport__WEBPACK_IMPORTED_MODULE_2__["default"],
+    name: 'GenerateReport'
+  }, {
+    path: 'bitacora',
+    component: _pages_fuelStation_GenerateBitacora__WEBPACK_IMPORTED_MODULE_1__["default"],
+    name: 'GenerateBitacora'
+  }]
+}]);
 
-}, {
+/***/ }),
+
+/***/ "./resources/js/router/modules/NicolasRomero.js":
+/*!******************************************************!*\
+  !*** ./resources/js/router/modules/NicolasRomero.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pages_nicolasRomero_Index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../pages/nicolasRomero/Index */ "./resources/js/pages/nicolasRomero/Index.vue");
+/* harmony import */ var _pages_nicolasRomero_ListOfCodes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../pages/nicolasRomero/ListOfCodes */ "./resources/js/pages/nicolasRomero/ListOfCodes.vue");
+/* harmony import */ var _pages_nicolasRomero_ImportExcel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../pages/nicolasRomero/ImportExcel */ "./resources/js/pages/nicolasRomero/ImportExcel.vue");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/nicolas_romero',
-  component: _pages_nicolasRomero_Index__WEBPACK_IMPORTED_MODULE_1__["default"],
+  component: _pages_nicolasRomero_Index__WEBPACK_IMPORTED_MODULE_0__["default"],
   name: 'NicolasRomero',
   meta: {
     requiresAuth: true,
@@ -65186,42 +65442,72 @@ var routes = [{
   },
   children: [{
     path: '/',
-    component: _pages_nicolasRomero_ListOfCodes__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _pages_nicolasRomero_ListOfCodes__WEBPACK_IMPORTED_MODULE_1__["default"]
   }, {
     path: 'importar_excel',
-    component: _pages_nicolasRomero_ImportExcel__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _pages_nicolasRomero_ImportExcel__WEBPACK_IMPORTED_MODULE_2__["default"]
   }]
+}]);
+
+/***/ }),
+
+/***/ "./resources/js/router/modules/Paysheet.js":
+/*!*************************************************!*\
+  !*** ./resources/js/router/modules/Paysheet.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  path: '/nomina/administrador',
+  name: 'paysheet-Upload'
 }, {
-  path: '/gasolinera',
-  component: _pages_fuelStation_IndexOperation__WEBPACK_IMPORTED_MODULE_8__["default"],
-  name: 'FuelStation',
-  meta: {
-    requiresAuth: true,
-    fuelStationAuth: true
-  },
-  children: [{
-    path: '/',
-    component: _pages_fuelStation_ScanQRCode__WEBPACK_IMPORTED_MODULE_10__["default"],
-    name: 'ScanQRCode'
-  }, {
-    path: 'recarga',
-    component: _pages_fuelStation_Refill__WEBPACK_IMPORTED_MODULE_9__["default"],
-    name: 'Refill'
-  }]
+  path: '/nomina/:rfc',
+  name: 'paysheet-View'
+}].map(function (route) {
+  var namePath = route.name.split('-');
+  return _objectSpread(_objectSpread({}, route), {}, {
+    component: function component() {
+      return __webpack_require__("./resources/js/pages lazy recursive ^\\.\\/.*\\.vue$")("./".concat(namePath[0], "/").concat(namePath[1], ".vue"));
+    }
+  });
+}));
+
+/***/ }),
+
+/***/ "./resources/js/router/modules/others.js":
+/*!***********************************************!*\
+  !*** ./resources/js/router/modules/others.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../components/auth/Login */ "./resources/js/components/auth/Login.vue");
+/* harmony import */ var _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../pages/nicolasRomero/ViewDetails */ "./resources/js/pages/nicolasRomero/ViewDetails.vue");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  path: '/login',
+  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"],
+  name: 'Login'
 }, {
-  path: '/gasolinera/generar',
-  component: _pages_fuelStation_IndexOffice__WEBPACK_IMPORTED_MODULE_5__["default"],
-  name: 'IndexFuelStationOffice',
-  children: [{
-    path: 'reporte',
-    component: _pages_fuelStation_GenerateReport__WEBPACK_IMPORTED_MODULE_7__["default"],
-    name: 'GenerateReport'
-  }, {
-    path: 'bitacora',
-    component: _pages_fuelStation_GenerateBitacora__WEBPACK_IMPORTED_MODULE_6__["default"],
-    name: 'GenerateBitacora'
-  }]
-}];
+  path: '/ver/:uuid/:type',
+  component: _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  path: '*',
+  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"] // Redirigir a pantalla con mensaje de 'bienvenido a sistemas no se queeeeee'
+
+}]);
 
 /***/ }),
 

@@ -3,10 +3,8 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import { routes } from './routes'
+import { routes } from './router'
 import MainApp from './components/MainApp'
-/*import QRCodeAtizapan from './store/QRCodeAtizapan/store'
-import FuelStation from './store/fuelStation/store'*/
 import StoreData from './store/store'
 
 Vue.use(VueRouter)

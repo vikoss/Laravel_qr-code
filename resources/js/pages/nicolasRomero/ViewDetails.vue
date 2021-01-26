@@ -3,7 +3,7 @@
         <div class="row">
         
         <div class="col-sm">
-            <img :src="'/images/nr_logo.jpg'" alt="Logo Nicolas Romero" style="width: 100%; height: auto;">
+            <img :src="require('./../../assets/images/nr_logo.jpg')" alt="Logo Nicolas Romero" style="width: 100%; height: auto;">
         </div>
 
         <div class="col-sm">
