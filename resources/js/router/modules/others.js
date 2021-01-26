@@ -7,6 +7,7 @@ export default [
     component: Login,
     name: 'Login'
   },
+  // This route belongs to module Nicolas Romero but when at the beginning qr was generated with this path
   {
     path: '/ver/:uuid/:type',
     component: ViewDetails,

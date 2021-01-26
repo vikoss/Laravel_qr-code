@@ -2113,6 +2113,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$router.push('gasolinera');
         } else if (response.role == 'NicolasRomero') {
           _this.$router.push('nicolas_romero');
+        } else if (response.role == 'Paysheet-Administrator') {
+          _this.$router.push('nomina/rfc');
         }
       })["catch"](function (error) {
         _this.$store.commit('loginFailed', {
@@ -65340,7 +65342,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_FuelStation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/FuelStation */ "./resources/js/router/modules/FuelStation.js");
 /* harmony import */ var _modules_NicolasRomero__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/NicolasRomero */ "./resources/js/router/modules/NicolasRomero.js");
 /* harmony import */ var _modules_Paysheet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/Paysheet */ "./resources/js/router/modules/Paysheet.js");
-/* harmony import */ var _modules_others__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/others */ "./resources/js/router/modules/others.js");
+/* harmony import */ var _modules_Others__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Others */ "./resources/js/router/modules/Others.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -65357,7 +65359,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-var routes = [].concat(_toConsumableArray(_modules_FuelStation__WEBPACK_IMPORTED_MODULE_0__["default"]), _toConsumableArray(_modules_NicolasRomero__WEBPACK_IMPORTED_MODULE_1__["default"]), _toConsumableArray(_modules_Paysheet__WEBPACK_IMPORTED_MODULE_2__["default"]), _toConsumableArray(_modules_others__WEBPACK_IMPORTED_MODULE_3__["default"]));
+var routes = [].concat(_toConsumableArray(_modules_FuelStation__WEBPACK_IMPORTED_MODULE_0__["default"]), _toConsumableArray(_modules_NicolasRomero__WEBPACK_IMPORTED_MODULE_1__["default"]), _toConsumableArray(_modules_Paysheet__WEBPACK_IMPORTED_MODULE_2__["default"]), _toConsumableArray(_modules_Others__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -65451,6 +65453,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/router/modules/Others.js":
+/*!***********************************************!*\
+  !*** ./resources/js/router/modules/Others.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../components/auth/Login */ "./resources/js/components/auth/Login.vue");
+/* harmony import */ var _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../pages/nicolasRomero/ViewDetails */ "./resources/js/pages/nicolasRomero/ViewDetails.vue");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  path: '/login',
+  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"],
+  name: 'Login'
+}, // This route belongs to module Nicolas Romero but when at the beginning qr was generated with this path
+{
+  path: '/ver/:uuid/:type',
+  component: _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  path: '*',
+  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"] // Redirigir a pantalla con mensaje de 'bienvenido a sistemas no se queeeeee'
+
+}]);
+
+/***/ }),
+
 /***/ "./resources/js/router/modules/Paysheet.js":
 /*!*************************************************!*\
   !*** ./resources/js/router/modules/Paysheet.js ***!
@@ -65480,34 +65511,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   });
 }));
-
-/***/ }),
-
-/***/ "./resources/js/router/modules/others.js":
-/*!***********************************************!*\
-  !*** ./resources/js/router/modules/others.js ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../components/auth/Login */ "./resources/js/components/auth/Login.vue");
-/* harmony import */ var _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../pages/nicolasRomero/ViewDetails */ "./resources/js/pages/nicolasRomero/ViewDetails.vue");
-
-
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  path: '/login',
-  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: 'Login'
-}, {
-  path: '/ver/:uuid/:type',
-  component: _pages_nicolasRomero_ViewDetails__WEBPACK_IMPORTED_MODULE_1__["default"]
-}, {
-  path: '*',
-  component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_0__["default"] // Redirigir a pantalla con mensaje de 'bienvenido a sistemas no se queeeeee'
-
-}]);
 
 /***/ }),
 

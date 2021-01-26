@@ -59,6 +59,8 @@ export default {
                         this.$router.push('gasolinera')
                     } else if (response.role == 'NicolasRomero') {
                         this.$router.push('nicolas_romero')
+                    } else if (response.role == 'Paysheet-Administrator') {
+                        this.$router.push('nomina/rfc')
                     }
                 })
                 .catch(error => {
