@@ -37,7 +37,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['currentUser'])
+        ...mapGetters('oauth', ['token'])
     },
     methods: {
         handleFile() {
@@ -55,7 +55,7 @@ export default {
 
             formData.append('file', this.file)
 
-            uploadExcel(formData, this.currentUser.token)
+            uploadExcel(formData, this.token)
                 .then(response => {
                     if (response.success) {
                         this.success = true

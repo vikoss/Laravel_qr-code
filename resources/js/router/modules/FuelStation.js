@@ -10,7 +10,7 @@ export default [
   {
     path: '/gasolinera',
     component: IndexFuelStationOperation,
-    name: 'FuelStation',
+    name: 'FuelStation-Operations',
     meta: {
       requiresAuth: true,
       fuelStationAuth: true
@@ -19,7 +19,7 @@ export default [
       {
           path: '/',
           component: ScanQRCode,
-          name: 'ScanQRCode'
+          name: 'FuelStation-Operations-Scan'
       },
       {
           path: 'recarga',
@@ -31,7 +31,7 @@ export default [
   {
     path: '/gasolinera/generar',
     component: IndexFuelStationOffice,
-    name: 'IndexFuelStationOffice',
+    name: 'FuelStation-Office',
     children: [
       {
           path: 'reporte',

@@ -1,9 +1,9 @@
-export function getLocalUser() {
-    const userStr = localStorage.getItem('user')
-
-    if (!userStr) {
-        return null
-    }
-
-    return JSON.parse(userStr)
+function getLocalUser() {
+  const userString = localStorage.getItem('user-qr-codes')
+  if (!userString) {
+    return null
+  }
+  return JSON.parse(userString)
 }
+
+export default getLocalUser()

@@ -82,7 +82,7 @@ export default {
         }
     },
     mounted() {
-        this.GetDependencies(this.currentUser.token)
+        this.GetDependencies(this.token)
     },
     methods: {
         GetDependencies(token) {
@@ -95,7 +95,7 @@ export default {
                 })
         },
         GetReport() {
-            getReport(this.payload, this.currentUser.token)
+            getReport(this.payload, this.token)
                 .then(response => {
                     if (response.pdf) {
                         this.modalPDF = true
@@ -129,7 +129,7 @@ export default {
 
             }
         },
-        ...mapGetters(['currentUser'])
+        ...mapGetters('oauth', ['token'])
     }
 
 }

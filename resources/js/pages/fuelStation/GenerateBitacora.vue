@@ -69,7 +69,7 @@ export default {
         }
     },
     mounted() {
-        this.GetVehicles(this.currentUser.token)
+        this.GetVehicles(this.token)
     },
     methods: {
         GetVehicles(token) {
@@ -82,7 +82,7 @@ export default {
                 })
         },
         GetBitacora() {
-            getBitacora(this.payload, this.currentUser.token)
+            getBitacora(this.payload, this.token)
                 .then(response => {
                     if (response.pdf) {
                         this.modalPDF = true
@@ -118,7 +118,7 @@ export default {
         Success() {
             return !!this.payload.uuid && this.payload.start_date != '1980-01-01' && this.payload.end_date != '1980-01-01'
         },
-        ...mapGetters(['currentUser'])
+        ...mapGetters('oauth', ['token'])
     }
 
 }

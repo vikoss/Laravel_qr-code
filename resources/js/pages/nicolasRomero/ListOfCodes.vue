@@ -102,7 +102,7 @@ export default {
     },
     methods: {
         getResults(page) {
-            getList(!!page ? page : 1, this.currentUser.token)
+            getList(!!page ? page : 1, this.token)
                 .then(response => {
                     this.data = response
                 })
@@ -112,7 +112,7 @@ export default {
         },
         ViewPDF(payload) {
             this.modalPDF = true
-            getPDF(payload, this.currentUser.token)
+            getPDF(payload, this.token)
                 .then(response => {
                     this.encodedPDF = response.pdf
                 })
@@ -126,7 +126,7 @@ export default {
             this.indexOfTax = key
         },
         Delete(uuid) {
-            deleteTax(uuid, this.currentUser.token)
+            deleteTax(uuid, this.token)
                 .then(response => {
                     if (response.success) {
                         this.data.data.splice(this.indexOfTax, 1)
@@ -160,7 +160,7 @@ export default {
             }
             return pagesArray;
         },
-        ...mapGetters(['currentUser'])
+        ...mapGetters('oauth', ['token'])
     }
 }
 </script>

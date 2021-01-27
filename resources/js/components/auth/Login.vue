@@ -1,80 +1,51 @@
 <template>
-    <div class="login row justify-content-center">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    login
-                </div>
-                <div class="card-body">
-                    <form @submit.prevent="authenticate">
-                        <div class="form-group row">
-                            <label for="email">Correo:</label>
-                            <input type="email" name="email" id="email" placeholder="Escribe tu correo" v-model="form.email">
-                        </div>
-                        <div class="form-group row">
-                            <label for="password">Contrasena:</label>
-                            <input type="password" name="password" id="password" placeholder="Escribe tu contrasena" v-model="form.password">
-                        </div>
-                        <div class="form-group row">
-                            <input type="submit" value="Entrar">
-                        </div>
-                        <div class="form-group row" v-if="authError">
-                            <p class="error">
-                                {{ authError }}
-                            </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
+<div class="login row justify-content-center">
+  <div class="col-md-4">
+    <!--h1 class="display-5">Bienvenid@</h1>
+    <img :src="require('./../../assets/images/favicon.png')" alt="Codigo QR" width="100px"-->
+    <form @submit.prevent="login(form)">
+      <div class="form-group row">
+        <label class="form-label" for="email">Correo:</label>
+        <input type="email" name="email" id="email" placeholder="Escribe tu correo" v-model="form.email" class="form-control form-control-lg">
+      </div>
+      <div class="form-group row">
+        <label class="form-label" for="password">Contrasena:</label>
+        <input type="password" name="password" id="password" placeholder="Escribe tu contrasena" v-model="form.password" class="form-control form-control-lg">
+      </div>
+      <div class="form-group row">
+        <input type="submit" value="Ingresar" class="btn btn-outline-primary btn-lg">
+      </div>
+      <div class="form-group row" v-if="error">
+        <p class="error">
+          Usuario o contrasena incorrecta.
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
 </template>
 
 <script>
-import { login } from './../../services/auth'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-    name: 'login',
-    data() {
-        return {
-            form: {
-                email: '',
-                password: ''
-            },
-            error: null
-        }
-    },
-    methods: {
-        authenticate() {
-            this.$store.dispatch('login')
-
-            login(this.form)
-                .then(response => {
-                    this.$store.commit('loginSuccess', response)
-                    console.log(response.role)
-                    if (response.role == 'FuelStation-Office') {
-                        this.$router.push('gasolinera/generar')
-                    } else if (response.role == 'FuelStation-Operations') {
-                        this.$router.push('gasolinera')
-                    } else if (response.role == 'NicolasRomero') {
-                        this.$router.push('nicolas_romero')
-                    } else if (response.role == 'Paysheet-Administrator') {
-                        this.$router.push('nomina/rfc')
-                    }
-                })
-                .catch(error => {
-                    this.$store.commit('loginFailed', {error})
-                })
-        }
-    },
-    computed: {
-        ...mapGetters(['authError'])
-    },
-    mounted() {
-        //console.log(this.$store.state)
+  name: 'login',
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      },
     }
-
+  },
+  methods: {
+    ...mapActions('oauth', ['login']),
+  },
+  computed: {
+    ...mapGetters('oauth', ['error', 'loading'])
+  },
 }
 </script>
 

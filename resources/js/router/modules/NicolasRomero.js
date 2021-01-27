@@ -16,10 +16,12 @@ export default [
         {
             path: '/',
             component: ListOfCodes,
+            name: 'NicolasRomero-List',
         },
         {
             path: 'importar_excel',
             component: ImportExcel,
+            name: 'NicolasRomero-Import-Excel',
         },
     ]
   },
