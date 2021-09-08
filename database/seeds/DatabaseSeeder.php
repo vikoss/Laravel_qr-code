@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             VehicleSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            EventTypeSeeder::class,
+            RelationshipTypeSeeder::class,
         ]);
     }
 }
