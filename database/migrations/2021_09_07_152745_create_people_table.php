@@ -20,7 +20,7 @@ class CreatePeopleTable extends Migration
             $table->string('second_surname');
             $table->unsignedBigInteger('phone')->unique();
             $table->string('email')->nullable();
-            $table->string('face_photo_url')->nullable();
+            $table->string('face_photo_path')->nullable();
             $table->timestamps();
         });
     }

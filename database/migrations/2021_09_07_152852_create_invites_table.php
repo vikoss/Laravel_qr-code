@@ -16,7 +16,9 @@ class CreateInvitesTable extends Migration
         Schema::connection('graduationPhotos')->create('invites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
-            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('host_id')->constrained('people')->onDelete('cascade');
+            $table->foreignId('guest_id')->constrained('people')->onDelete('cascade');
+            $table->foreignId('relationship_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

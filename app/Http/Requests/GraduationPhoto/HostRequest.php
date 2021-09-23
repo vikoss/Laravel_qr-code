@@ -4,7 +4,7 @@ namespace App\Http\Requests\GraduationPhoto;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InviteRequest extends FormRequest
+class HostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,7 @@ class InviteRequest extends FormRequest
     {
         return [
             'event_id'          => 'required|numeric',
-            'guest_id'          => 'required|numeric',
-            'host_id'           => 'required|numeric',
-            'relationship_id'   => 'required|numeric'
+            'person_id'         => 'required|numeric',
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\ModelsGraduationPhotos;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RelationshipType extends Model
+class RelationshipTypes extends Model
 {
     protected $connection = 'graduationPhotos';
 }

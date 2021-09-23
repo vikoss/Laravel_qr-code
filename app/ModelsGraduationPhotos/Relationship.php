@@ -8,8 +8,8 @@ class Relationship extends Model
 {
     protected $connection   = 'graduationPhotos';
 
-    public function invite()
+    public function invitations()
     {
-        return $this->belongsTo(Invite::class);
+        return $this->hasMany(Invite::class);
     }
 }

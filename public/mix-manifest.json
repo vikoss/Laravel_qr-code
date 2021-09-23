@@ -1,16 +1,15 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/ModulePaysheet11.js": "/ModulePaysheet11.js",
-    "/ModulePaysheet12.js": "/ModulePaysheet12.js",
-    "/ModulePaysheet6.js": "/ModulePaysheet6.js",
-    "/ModulePaysheet13.js": "/ModulePaysheet13.js",
-    "/ModulePaysheet7.js": "/ModulePaysheet7.js",
-    "/ModulePaysheet14.js": "/ModulePaysheet14.js",
-    "/ModulePaysheet8.js": "/ModulePaysheet8.js",
-    "/ModulePaysheet15.js": "/ModulePaysheet15.js",
-    "/ModulePaysheet9.js": "/ModulePaysheet9.js",
     "/ModulePaysheet10.js": "/ModulePaysheet10.js",
-    "/ModulePaysheet16.js": "/ModulePaysheet16.js",
-    "/ModulePaysheet10~ModulePaysheet9.js": "/ModulePaysheet10~ModulePaysheet9.js"
+    "/ModulePaysheet10~ModulePaysheet12~ModulePaysheet6~ModulePaysheet7~ModulePaysheet8~ModulePaysheet9.js": "/ModulePaysheet10~ModulePaysheet12~ModulePaysheet6~ModulePaysheet7~ModulePaysheet8~ModulePaysheet9.js",
+    "/ModulePaysheet11.js": "/ModulePaysheet11.js",
+    "/ModulePaysheet11~ModulePaysheet12.js": "/ModulePaysheet11~ModulePaysheet12.js",
+    "/ModulePaysheet12.js": "/ModulePaysheet12.js",
+    "/ModulePaysheet17.js": "/ModulePaysheet17.js",
+    "/ModulePaysheet18.js": "/ModulePaysheet18.js",
+    "/ModulePaysheet6.js": "/ModulePaysheet6.js",
+    "/ModulePaysheet7.js": "/ModulePaysheet7.js",
+    "/ModulePaysheet8.js": "/ModulePaysheet8.js",
+    "/ModulePaysheet9.js": "/ModulePaysheet9.js"
 }

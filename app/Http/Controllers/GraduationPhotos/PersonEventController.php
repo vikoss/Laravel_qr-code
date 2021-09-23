@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\GraduationPhotos;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\ModelsGraduationPhotos\Person;
-use App\Http\Requests\GraduationPhotos\EventRequest;
+use App\ModelsGraduationPhotos\Event;
+use App\Http\Requests\GraduationPhoto\EventRequest;
 
 class PersonEventController extends Controller
 {
-    public function store(Person $person, EventRequest $event)
+    public function store(Person $person, Request $request)
     {
-        $person->events()->create($event->validated());
+        return $person->events()->save(Event::find($request->id));
     }
 }

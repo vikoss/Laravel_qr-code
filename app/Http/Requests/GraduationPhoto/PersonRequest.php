@@ -28,8 +28,8 @@ class PersonRequest extends FormRequest
             'first_surname'     => 'required|string',
             'second_surname'    => 'required|string',
             'phone'             => 'required|numeric',
-            'email'             => 'required|email',
-            'face_photo_url'    => 'required|url'
+            'email'             => 'nullable|email',
+            'face_photo_path'   => 'nullable|string'
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\GraduationPhotos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ModelsGraduationPhotos\Invite;
-use App\Http\Requests\GraduationPhotos\RelationshipRequest;
+use App\Http\Requests\GraduationPhoto\RelationshipRequest;
 
 class InviteRelationshipController extends Controller
 {

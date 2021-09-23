@@ -24,8 +24,9 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
+            'name'      => 'required|string',
             'date_time' => 'required|date',
-            'person_id' => 'required|numeric'
+            'person_id' => 'nullable'
         ];
     }
 }

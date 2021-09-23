@@ -4,14 +4,19 @@ namespace App\ModelsGraduationPhotos;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Host extends Model
 {
     protected $connection   = 'graduationPhotos';
-    protected $fillable = ['name', 'date_time'];
+    protected $fillable = ['event_id', 'person_id'];
 
-    public function hosts()
+    public function event()
     {
-        return $this->hasMany(Host::class);
+        return $this->belongsTo(Event::class);
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
     }
 
     public function invitations()

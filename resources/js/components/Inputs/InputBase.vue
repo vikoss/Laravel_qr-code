@@ -3,10 +3,14 @@
     <label :for="id" v-if="label">{{ label }}</label>
     <input
       :type="type"
+      :required="required"
       :name="id"
       :id="id"
       :placeholder="placeholderDefault"
       :disabled="disabled"
+      :readonly="readonly"
+      :value="value"
+      @input="$emit('update', $event.target.value)"
     >
   </div>
 </template>
@@ -15,6 +19,10 @@
 export default {
   name: 'InputBase',
   props: {
+    value: {
+      type: String,
+      default: '',
+    },
     type: {
       type: String,
       default: 'text',
@@ -35,7 +43,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
   },
+  model: { prop: 'value', event: 'update' },
   computed: {
     placeholderDefault() {
       return this.placeholder === ''
