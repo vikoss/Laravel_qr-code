@@ -29,6 +29,7 @@
         "vue-qrcode-reader": "^2.3.14",
         "vue-router": "^3.4.8",
         "vue-select": "^3.10.8",
+        "vue-social-sharing": "^3.0.8",
         "vuex": "^3.5.1"
     }
 }
